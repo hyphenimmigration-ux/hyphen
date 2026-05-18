@@ -571,17 +571,39 @@ function calculate(){
 
   const metCount = scored.filter(s => s.strength >= MET_THRESHOLD).length;
 
-  // Composite: average of the top 4 criteria (USCIS reads your strongest),
-  // then a threshold reward/penalty around the regulatory "3 of 8" line.
+  // ---- Calibrated, honest composite ----
+  // Principle: the score reflects the WHOLE profile, not just the strong parts.
+  // Meeting the 3-criterion regulatory minimum puts you in a realistic
+  // "in range" PLATEAU (~68-80), NOT near-certain. 90+ is reserved for
+  // genuinely exceptional profiles (a major award, or many strong criteria),
+  // because USCIS adjudication of weak/partial criteria carries real risk.
   const sortedStrength = [...scored].map(s=>s.strength).sort((a,b)=>b-a);
-  const top4avg = (sortedStrength[0]+sortedStrength[1]+sortedStrength[2]+sortedStrength[3]) / 4;
 
-  let composite = top4avg;
-  if (metCount >= 3) composite = Math.min(100, composite + 6 + (metCount-3)*3);
-  else if (metCount === 2) composite = composite - 8;
-  else composite = composite - 18;
+  // Base = blended strength: the strongest criteria matter most (USCIS reads
+  // your best), but the weak ones still drag, because a thin petition with
+  // soft criteria genuinely is weaker.
+  const top3avg = (sortedStrength[0]+sortedStrength[1]+sortedStrength[2]) / 3;
+  const overallAvg = scored.reduce((a,s)=>a+s.strength,0) / scored.length;
+  let composite = top3avg * 0.55 + overallAvg * 0.45;
 
-  if (majorAward) composite = Math.max(composite, 93);
+  if (majorAward) {
+    composite = Math.max(composite, 92);          // award path: genuinely strong
+  } else if (metCount >= 3) {
+    // In range — but a plateau, not a launchpad. Bare minimum sits ~68-72;
+    // each additional strong criterion adds a little real confidence.
+    composite = Math.min(composite, 60 + metCount * 4);   // caps the ceiling
+    composite = Math.max(composite, 64 + (metCount-3) * 4); // sets the floor
+  } else if (metCount === 2) {
+    composite = Math.min(composite, 52);          // one criterion short
+  } else if (metCount === 1) {
+    composite = Math.min(composite, 38);
+  } else {
+    composite = Math.min(composite, 26);          // not yet a real case
+  }
+
+  // 90+ only for exceptional: a major award, or a deep profile (5+ strong).
+  if (!majorAward && metCount < 5) composite = Math.min(composite, 86);
+
   composite = Math.max(3, Math.min(100, Math.round(composite)));
 
   renderResult(composite, scored, metCount, majorAward);
