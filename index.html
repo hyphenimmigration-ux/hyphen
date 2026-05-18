@@ -129,10 +129,24 @@ h1 em { font-style: italic; color: var(--sunset); }
 
 .plan-item { padding: 22px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 38px 1fr auto; gap: 20px; align-items: start; }
 .plan-item:last-child { border-bottom: none; }
+.plan-item.plan-done { opacity: 0.62; }
 .plan-n { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--sunset); font-variation-settings: "opsz" 36, "SOFT" 100, "WONK" 1; }
 .plan-action { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
-.plan-action span { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.plan-detail { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.plan-check { display: flex; align-items: flex-start; gap: 11px; cursor: pointer; font-weight: 500; }
+.plan-check input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--green); flex-shrink: 0; cursor: pointer; }
+.plan-done .plan-check span { text-decoration: line-through; }
 .plan-lift { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); white-space: nowrap; padding-top: 2px; }
+
+.progress-box { background: var(--ink); color: var(--bg); padding: 28px 30px; margin: 32px 0 8px; position: relative; }
+.progress-box::before { content: ""; position: absolute; top: -6px; left: -6px; right: 6px; bottom: 6px; border: 1px solid var(--sunset); pointer-events: none; z-index: -1; }
+.progress-box h3 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--sunset); margin-bottom: 20px; }
+.prog-row { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; }
+.prog-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(250,246,238,0.55); margin-bottom: 6px; }
+.prog-val { font-family: 'Fraunces', serif; font-size: 44px; line-height: 1; font-variation-settings: "opsz" 144; letter-spacing: -0.03em; }
+.prog-arrow { color: var(--sunset); font-size: 22px; }
+.prog-delta { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #6FC08C; margin-left: auto; font-weight: 500; }
+.prog-note { font-size: 14px; line-height: 1.55; color: rgba(250,246,238,0.8); border-top: 1px solid rgba(250,246,238,0.16); padding-top: 16px; }
 
 .cta-final { background: var(--bg-card); border: 1px solid var(--rule); padding: 38px 34px; margin: 50px 0 0; text-align: center; }
 .cta-final h3 { font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 12px; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 60; }
@@ -432,10 +446,12 @@ h1 em { font-style: italic; color: var(--sunset); }
         <div class="summary-line"><b>Fastest gain</b><span id="sumFast"></span></div>
       </div>
 
+      <div id="progressBox" class="progress-box" style="display:none;"></div>
+
       <div class="section-h">Criterion-by-criterion</div>
       <div id="critList"></div>
 
-      <div class="section-h">Your plan — ranked by impact</div>
+      <div class="section-h">Your plan — check off what you complete</div>
       <div id="planList"></div>
 
       <div class="cta-final">
@@ -542,20 +558,18 @@ const CRIT = [
 // "Met" threshold: a criterion counts toward the USCIS 3 if strength >= 70
 const MET_THRESHOLD = 70;
 
-function calculate(){
-  // Major award = effectively automatic strong case
-  const majorAward = answers['c_award'] === 'yes';
+// Pure scoring function — takes the answers, returns everything.
+// Reusable so we can RE-score live as the user completes plan actions.
+function computeScore(ans, completedKeys){
+  completedKeys = completedKeys || [];
+  const majorAward = ans['c_award'] === 'yes';
 
-  // Per-criterion strengths
   const scored = CRIT.map(c => {
-    let v = c.map[answers[c.key]] ?? 12;
+    let v = c.map[ans[c.key]] ?? 12;
     return { ...c, strength: v };
   });
 
-  // Field/stage modifier — early-career profiles realistically score
-  // a touch lower on "impact" criteria; founders get a small bump on
-  // role/original because the regs explicitly recognize that path.
-  const stage = answers['q_stage'];
+  const stage = ans['q_stage'];
   scored.forEach(s => {
     if (stage === 'student') {
       if (['c_orig','c_role','c_salary','c_scholar'].includes(s.key)) s.strength *= 0.9;
@@ -566,47 +580,65 @@ function calculate(){
     if (stage === 'senior') {
       s.strength = Math.min(100, s.strength * 1.04);
     }
+    // Completed plan action → that criterion is now genuinely built up.
+    // We raise it to a documented-strong level (78) — honest, not inflated:
+    // doing the real work genuinely moves the criterion over the line.
+    if (completedKeys.includes(s.key)) s.strength = Math.max(s.strength, 78);
     s.strength = Math.round(s.strength);
   });
 
   const metCount = scored.filter(s => s.strength >= MET_THRESHOLD).length;
-
-  // ---- Calibrated, honest composite ----
-  // Principle: the score reflects the WHOLE profile, not just the strong parts.
-  // Meeting the 3-criterion regulatory minimum puts you in a realistic
-  // "in range" PLATEAU (~68-80), NOT near-certain. 90+ is reserved for
-  // genuinely exceptional profiles (a major award, or many strong criteria),
-  // because USCIS adjudication of weak/partial criteria carries real risk.
   const sortedStrength = [...scored].map(s=>s.strength).sort((a,b)=>b-a);
-
-  // Base = blended strength: the strongest criteria matter most (USCIS reads
-  // your best), but the weak ones still drag, because a thin petition with
-  // soft criteria genuinely is weaker.
   const top3avg = (sortedStrength[0]+sortedStrength[1]+sortedStrength[2]) / 3;
   const overallAvg = scored.reduce((a,s)=>a+s.strength,0) / scored.length;
   let composite = top3avg * 0.55 + overallAvg * 0.45;
 
   if (majorAward) {
-    composite = Math.max(composite, 92);          // award path: genuinely strong
+    composite = Math.max(composite, 92);
   } else if (metCount >= 3) {
-    // In range — but a plateau, not a launchpad. Bare minimum sits ~68-72;
-    // each additional strong criterion adds a little real confidence.
-    composite = Math.min(composite, 60 + metCount * 4);   // caps the ceiling
-    composite = Math.max(composite, 64 + (metCount-3) * 4); // sets the floor
+    composite = Math.min(composite, 60 + metCount * 4);
+    composite = Math.max(composite, 64 + (metCount-3) * 4);
   } else if (metCount === 2) {
-    composite = Math.min(composite, 52);          // one criterion short
+    composite = Math.min(composite, 52);
   } else if (metCount === 1) {
     composite = Math.min(composite, 38);
   } else {
-    composite = Math.min(composite, 26);          // not yet a real case
+    composite = Math.min(composite, 26);
   }
-
-  // 90+ only for exceptional: a major award, or a deep profile (5+ strong).
   if (!majorAward && metCount < 5) composite = Math.min(composite, 86);
-
   composite = Math.max(3, Math.min(100, Math.round(composite)));
 
-  renderResult(composite, scored, metCount, majorAward);
+  return { composite, scored, metCount, majorAward };
+}
+
+// Persistence — stays on the user's device only. Nothing transmitted.
+const STORE_KEY = 'hyphen_o1a_state_v1';
+function saveState(){
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      answers,
+      completed: window._completed || [],
+      firstScore: window._firstScore,
+      savedAt: Date.now()
+    }));
+  } catch(_) {}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch(_) { return null; }
+}
+
+function calculate(){
+  const r = computeScore(answers);
+  // Record the very first score the first time they finish, so we can
+  // honestly show progress ("you started at X") on return visits.
+  if (window._firstScore === undefined) window._firstScore = r.composite;
+  window._completed = window._completed || [];
+  saveState();
+  renderResult(r.composite, r.scored, r.metCount, r.majorAward);
   go(6);
 }
 
@@ -672,17 +704,70 @@ function renderResult(score, scored, metCount, majorAward){
 
   // Plan — ranked by realistic lift per effort
   const plan = buildPlan(scored, metCount, majorAward);
+  window._currentPlan = plan;
   const pl = document.getElementById('planList');
   pl.innerHTML = '';
+  const completed = window._completed || [];
   plan.forEach((p,i)=>{
+    const hasKey = !!p.key;
+    const done = hasKey && completed.includes(p.key);
     pl.innerHTML += `
-      <div class="plan-item">
+      <div class="plan-item ${done?'plan-done':''}">
         <div class="plan-n">${String(i+1).padStart(2,'0')}</div>
-        <div class="plan-action">${p.action}<span>${p.detail}</span></div>
-        <div class="plan-lift">${p.lift}</div>
+        <div class="plan-action">
+          ${hasKey ? `<label class="plan-check">
+            <input type="checkbox" ${done?'checked':''} onchange="togglePlan('${p.key}', this.checked)">
+            <span>${p.action}</span>
+          </label>` : p.action}
+          <span class="plan-detail">${p.detail}</span>
+        </div>
+        <div class="plan-lift">${done ? '✓ done' : p.lift}</div>
       </div>`;
   });
   document.getElementById('sumFast').textContent = plan.length ? plan[0].action : 'Maintain and document your existing evidence.';
+
+  renderProgress();
+}
+
+// User checks/unchecks a completed action → re-score LIVE and persist.
+function togglePlan(key, isDone){
+  window._completed = window._completed || [];
+  const set = new Set(window._completed);
+  if (isDone) set.add(key); else set.delete(key);
+  window._completed = [...set];
+  saveState();
+  const r = computeScore(answers, window._completed);
+  renderResult(r.composite, r.scored, r.metCount, r.majorAward);
+}
+
+// Honest progress view: where you started vs. where you are now.
+function renderProgress(){
+  const box = document.getElementById('progressBox');
+  if (!box) return;
+  const first = window._firstScore;
+  const completed = window._completed || [];
+  const r = computeScore(answers, completed);
+  const now = r.composite;
+  if (first === undefined || completed.length === 0) {
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = 'block';
+  const delta = now - first;
+  const need = Math.max(0, 3 - r.metCount);
+  box.innerHTML = `
+    <h3>Your progress</h3>
+    <div class="prog-row">
+      <div><div class="prog-label">Started at</div><div class="prog-val">${first}</div></div>
+      <div class="prog-arrow">→</div>
+      <div><div class="prog-label">Now</div><div class="prog-val band-${band(now)}">${now}</div></div>
+      <div class="prog-delta">${delta>=0?'+':''}${delta}</div>
+    </div>
+    <p class="prog-note">${completed.length} action${completed.length>1?'s':''} completed · ${
+      r.metCount>=3
+        ? 'You now evidence the regulatory minimum. The next step is an attorney — not more building.'
+        : (need===1 ? 'One strong criterion from the USCIS minimum.' : need+' strong criteria from the USCIS minimum.')
+    }</p>`;
 }
 
 function buildPlan(scored, metCount, majorAward){
@@ -786,6 +871,9 @@ function capture(){
 
 function restartAll(){
   Object.keys(answers).forEach(k=>delete answers[k]);
+  window._completed = [];
+  window._firstScore = undefined;
+  try { localStorage.removeItem(STORE_KEY); } catch(_) {}
   document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
   document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
   document.getElementById('q_field').value='';
@@ -794,6 +882,36 @@ function restartAll(){
   ring.style.transition='none'; ring.style.strokeDashoffset='653.45';
   ring.classList.remove('stroke-low','stroke-mid','stroke-high');
   go(0);
+}
+
+// ---- RETURN VISIT: restore saved Score & progress ----
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = loadState();
+  if (!saved || !saved.answers || Object.keys(saved.answers).length === 0) return;
+  // Restore state silently and show a "welcome back" path straight to results.
+  Object.assign(answers, saved.answers);
+  window._completed = saved.completed || [];
+  window._firstScore = saved.firstScore;
+
+  const intro = document.querySelector('.step[data-step="0"]');
+  if (intro) {
+    const days = saved.savedAt ? Math.round((Date.now()-saved.savedAt)/86400000) : 0;
+    const when = days <= 0 ? 'earlier today' : days === 1 ? 'yesterday' : days + ' days ago';
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:var(--ink);color:var(--bg);padding:22px 24px;margin-bottom:32px;border:1px solid var(--sunset);';
+    banner.innerHTML = `
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--sunset);text-transform:uppercase;margin-bottom:8px;">Welcome back</div>
+      <div style="font-size:15px;line-height:1.5;margin-bottom:16px;">You saved your O-1A Score ${when}. Your progress and plan are still here.</div>
+      <button class="btn btn-primary" onclick="resumeSaved()" style="padding:13px 24px;font-size:14px;">See my saved Score &amp; progress →</button>`;
+    intro.insertBefore(banner, intro.firstChild);
+  }
+});
+
+function resumeSaved(){
+  const r = computeScore(answers, window._completed || []);
+  if (window._firstScore === undefined) window._firstScore = r.composite;
+  renderResult(r.composite, r.scored, r.metCount, r.majorAward);
+  go(6);
 }
 </script>
 
