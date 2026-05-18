@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hyphen — Your EB-2 NIW Score</title>
+<meta name="description" content="Know where you actually stand for the EB-2 National Interest Waiver. Free, honest strength guidance across the three Dhanasar prongs, plus your exact plan." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF6EE;--bg-card:#F2EBDC;--bg-deep:#EAE2D0;--ink:#1C1614;--ink-soft:#3A322C;--sunset:#D97843;--sunset-deep:#B85D2A;--indigo:#1E2D5C;--gold:#B89456;--rule:#C9BFA8;--muted:#6B6259;--green:#3B7A52;--amber:#B8923C;--red:#B8463A;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter Tight',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--indigo);color:var(--bg);}
+.paper::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.4;}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px;}
+.topbar{border-bottom:1px solid var(--rule);padding:22px 0;}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;max-width:1100px;}
+.logo{font-family:'Fraunces',serif;font-weight:500;font-size:24px;letter-spacing:-.02em;font-variation-settings:"opsz"144,"SOFT"100;display:flex;align-items:baseline;}
+.logo-dash{display:inline-block;width:13px;height:2px;background:var(--sunset);margin:0 2px 5px;}
+.topbar-tag{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.disclaimer-strip{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:12px 0;}
+.disclaimer-strip .wrap{max-width:1100px;}
+.disclaimer-strip p{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink-soft);text-align:center;line-height:1.5;}
+.disclaimer-strip strong{color:var(--ink);}
+.stage{padding:56px 0 90px;}
+.step{display:none;animation:fadeIn .45s ease both;}
+.step.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--sunset-deep);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--sunset);}
+h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(34px,5.5vw,56px);line-height:1.02;letter-spacing:-.03em;font-variation-settings:"opsz"144,"SOFT"60,"WONK"1;margin-bottom:22px;}
+h1 em{font-style:italic;color:var(--sunset);}
+.lead{font-size:18px;line-height:1.55;color:var(--ink-soft);margin-bottom:36px;max-width:58ch;}
+.lead strong{color:var(--ink);font-weight:500;}
+.q-block{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--rule);}
+.q-block:last-of-type{border-bottom:none;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sunset-deep);letter-spacing:.1em;margin-bottom:10px;}
+.q-title{font-family:'Fraunces',serif;font-size:23px;line-height:1.25;letter-spacing:-.015em;margin-bottom:6px;font-variation-settings:"opsz"36,"SOFT"60;}
+.q-help{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:20px;}
+.opt-list{display:flex;flex-direction:column;gap:10px;}
+.opt{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border:1px solid var(--rule);background:var(--bg-card);cursor:pointer;transition:border-color .15s,background .15s;}
+.opt:hover{border-color:var(--sunset);}
+.opt.sel{border-color:var(--ink);background:var(--bg-deep);}
+.opt input{margin-top:3px;accent-color:var(--sunset-deep);width:16px;height:16px;flex-shrink:0;}
+.opt-body{flex:1;}
+.opt-label{font-size:15px;font-weight:500;line-height:1.4;}
+.opt-sub{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.45;}
+.field input,.field select{width:100%;padding:14px 16px;border:1px solid var(--rule);background:var(--bg-card);font-family:'Inter Tight',sans-serif;font-size:15px;color:var(--ink);}
+.field input:focus,.field select:focus{outline:none;border-color:var(--sunset);}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:44px;gap:16px;}
+.btn{font-family:'Inter Tight',sans-serif;font-size:15px;font-weight:500;padding:16px 30px;border:none;cursor:pointer;transition:transform .15s,background .15s;display:inline-flex;align-items:center;gap:10px;}
+.btn-primary{background:var(--ink);color:var(--bg);}
+.btn-primary:hover{background:var(--sunset-deep);transform:translateY(-1px);}
+.btn-primary:disabled{background:var(--rule);color:var(--muted);cursor:not-allowed;transform:none;}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--rule);}
+.btn-ghost:hover{color:var(--ink);border-color:var(--ink);}
+.btn .arrow{transition:transform .15s;}
+.btn-primary:hover:not(:disabled) .arrow{transform:translateX(3px);}
+.pathway-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0;}
+@media(max-width:600px){.pathway-row{grid-template-columns:1fr;}}
+.pw-card{border:1px solid var(--rule);background:var(--bg-card);padding:26px 22px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s;display:block;}
+.pw-card:hover{border-color:var(--sunset);transform:translateY(-2px);}
+.pw-card.active{border-color:var(--ink);background:var(--bg-deep);}
+.pw-tag{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--sunset-deep);margin-bottom:10px;}
+.pw-name{font-family:'Fraunces',serif;font-size:22px;font-variation-settings:"opsz"36,"SOFT"60;margin-bottom:6px;letter-spacing:-.01em;}
+.pw-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.score-hero{text-align:center;padding:20px 0 50px;}
+.score-ring-wrap{position:relative;width:240px;height:240px;margin:0 auto 28px;}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-val{font-family:'Fraunces',serif;font-size:76px;font-weight:400;line-height:1;letter-spacing:-.04em;font-variation-settings:"opsz"144;}
+.score-outof{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.14em;margin-top:6px;}
+.score-verdict{font-family:'Fraunces',serif;font-size:26px;font-style:italic;margin-bottom:12px;font-variation-settings:"opsz"36,"SOFT"80;}
+.score-sub{font-size:16px;color:var(--ink-soft);max-width:56ch;margin:0 auto;line-height:1.55;}
+.band-low{color:var(--red);}.band-mid{color:var(--amber);}.band-high{color:var(--green);}
+.stroke-low{stroke:var(--red);}.stroke-mid{stroke:var(--amber);}.stroke-high{stroke:var(--green);}
+.section-h{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--sunset-deep);margin:56px 0 24px;display:flex;align-items:center;gap:12px;}
+.section-h::before{content:"";width:26px;height:1px;background:var(--sunset);}
+.prong-row{padding:22px 0;border-bottom:1px solid var(--rule);}
+.prong-row:last-child{border-bottom:none;}
+.prong-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:6px;}
+.prong-name{font-family:'Fraunces',serif;font-size:18px;font-variation-settings:"opsz"36,"SOFT"60;letter-spacing:-.01em;}
+.prong-status{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.prong-sub{font-size:13px;color:var(--muted);margin-bottom:10px;}
+.prong-bar-track{height:6px;background:var(--bg-deep);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+.prong-bar{height:100%;border-radius:4px;transform-origin:left;animation:grow .9s .2s both cubic-bezier(.16,1,.3,1);}
+.prong-bar.low{background:var(--red);}.prong-bar.mid{background:var(--amber);}.prong-bar.high{background:var(--green);}
+@keyframes grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+.prong-note{font-size:13.5px;color:var(--muted);line-height:1.5;}
+.summary-card{background:var(--ink);color:var(--bg);padding:32px 30px;margin:32px 0;position:relative;}
+.summary-card::before{content:"";position:absolute;top:-6px;left:-6px;right:6px;bottom:6px;border:1px solid var(--sunset);pointer-events:none;z-index:-1;}
+.summary-card h3{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--sunset);margin-bottom:18px;}
+.summary-line{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(250,246,238,.14);font-size:15px;line-height:1.5;}
+.summary-line:last-child{border-bottom:none;}
+.summary-line b{color:var(--sunset);font-family:'Fraunces',serif;font-style:italic;font-size:16px;flex-shrink:0;}
+.plan-item{padding:22px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:38px 1fr auto;gap:20px;align-items:start;}
+.plan-item:last-child{border-bottom:none;}
+.plan-n{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--sunset);font-variation-settings:"opsz"36,"SOFT"100,"WONK"1;}
+.plan-action{font-size:15.5px;line-height:1.45;color:var(--ink);}
+.plan-action span{display:block;font-size:13px;color:var(--muted);margin-top:4px;}
+.plan-lift{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);white-space:nowrap;padding-top:2px;}
+.cta-final{background:var(--bg-card);border:1px solid var(--rule);padding:38px 34px;margin:50px 0 0;text-align:center;}
+.cta-final h3{font-family:'Fraunces',serif;font-size:28px;margin-bottom:12px;letter-spacing:-.02em;font-variation-settings:"opsz"144,"SOFT"60;}
+.cta-final h3 em{font-style:italic;color:var(--sunset);}
+.cta-final p{font-size:15px;color:var(--ink-soft);max-width:52ch;margin:0 auto 26px;line-height:1.55;}
+.email-row{display:flex;gap:10px;max-width:440px;margin:0 auto;}
+.email-row input{flex:1;padding:15px 16px;border:1px solid var(--rule);background:var(--bg);font-family:'Inter Tight',sans-serif;font-size:15px;}
+.email-row input:focus{outline:none;border-color:var(--sunset);}
+.email-row button{background:var(--ink);color:var(--bg);border:none;padding:15px 24px;font-weight:500;cursor:pointer;font-size:14px;}
+.email-note{font-size:12px;color:var(--muted);margin-top:14px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;}
+.restart{text-align:center;margin-top:36px;}
+.restart a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);cursor:pointer;letter-spacing:.06em;}
+.restart a:hover{color:var(--ink);}
+.legal-foot{border-top:1px solid var(--rule);padding:32px 0 60px;}
+.legal-foot p{font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.65;color:var(--muted);letter-spacing:.03em;}
+@media(max-width:600px){.plan-item{grid-template-columns:28px 1fr;}.plan-lift{grid-column:2;padding-top:6px;}.email-row{flex-direction:column;}.nav-row{flex-direction:column-reverse;}.nav-row .btn{width:100%;justify-content:center;}}
+</style>
+</head>
+<body class="paper">
+<div class="topbar"><div class="wrap"><div class="logo">Hyp<span class="logo-dash"></span>en</div><div class="topbar-tag">EB-2 NIW STRENGTH SCORE · BETA</div></div></div>
+<div class="disclaimer-strip"><div class="wrap"><p><strong>Not legal advice. Not a law firm.</strong> Informational strength guidance based on the EB-2 NIW <em>Matter of Dhanasar</em> three-prong framework — not a prediction, promise, or guarantee. Only USCIS decides outcomes.</p></div></div>
+
+<div class="stage"><div class="wrap">
+
+<!-- STEP 0 -->
+<div class="step active" data-step="0">
+  <div class="eyebrow">The honest NIW check</div>
+  <h1>Know where you <em>actually</em> stand for the EB-2 NIW.</h1>
+  <p class="lead">The National Interest Waiver lets you self-petition for a green card — no employer, no job offer, no labor certification — <strong>if</strong> you satisfy all three prongs of the <em>Matter of Dhanasar</em> test. Most people are told "maybe" with no real assessment. In ~7 minutes this gives you an honest score on each prong and the specific plan to strengthen the weak one.</p>
+  <p class="lead" style="font-size:15px;color:var(--muted);">Unlike the O-1A's "3 of 8" test, NIW requires <strong>all three prongs</strong>. A strong record cannot rescue a weak endeavor, and a great endeavor cannot rescue a weak position. This tool scores them honestly — gated by your weakest prong, exactly as USCIS adjudicates.</p>
+  <div class="pathway-row">
+    <div class="pw-card active"><div class="pw-tag">You're checking</div><div class="pw-name">EB-2 NIW</div><div class="pw-desc">Self-petition green card · Dhanasar three-prong test</div></div>
+    <a class="pw-card" href="./" ><div class="pw-tag">Switch pathway</div><div class="pw-name">O-1A →</div><div class="pw-desc">Extraordinary ability work visa · 8-criteria test</div></a>
+  </div>
+  <div class="nav-row"><span></span><button class="btn btn-primary" onclick="start()">Start — it's free <span class="arrow">→</span></button></div>
+</div>
+
+<!-- STEP 1 — endeavor -->
+<div class="step" data-step="1">
+  <div class="eyebrow">Step 1 · Prong 1 — Your endeavor</div>
+  <h1>What are you actually proposing to do?</h1>
+  <div class="q-block">
+    <div class="q-num">Q1 · Field</div>
+    <div class="q-title">What field is your proposed endeavor in?</div>
+    <div class="field"><select id="q_field"><option value="">Select…</option><option>STEM research / science</option><option>Software / AI / technology</option><option>Healthcare / medicine / public health</option><option>Engineering / infrastructure / energy</option><option>Entrepreneurship / economic development</option><option>Education / policy</option><option>Other</option></select></div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">P1 · Substantial merit</div>
+    <div class="q-title">How clearly defined and substantively meritorious is your specific endeavor?</div>
+    <div class="q-help">NIW fails most often here. "I'm a good engineer" is not an endeavor. "I will develop X to solve Y" is. It must be specific.</div>
+    <div class="opt-list" data-single="n_merit">
+      <label class="opt"><input type="radio" name="n_merit" value="strong"><span class="opt-body"><span class="opt-label">A specific, well-defined endeavor with clear substantive value</span><span class="opt-sub">I can state exactly what I'll do and why it has merit</span></span></label>
+      <label class="opt"><input type="radio" name="n_merit" value="some"><span class="opt-body"><span class="opt-label">A general area of work, not yet sharply defined</span></span></label>
+      <label class="opt"><input type="radio" name="n_merit" value="none"><span class="opt-body"><span class="opt-label">Mostly "I'm skilled in my field" — no specific endeavor yet</span><span class="opt-sub">This is the #1 NIW denial reason — the plan will address it</span></span></label>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">P1 · National importance</div>
+    <div class="q-title">Does your endeavor have importance beyond your employer or locality?</div>
+    <div class="q-help">National/global implications — broad economic, scientific, health, security, or societal impact. Local or single-company benefit is not enough.</div>
+    <div class="opt-list" data-single="n_natimp">
+      <label class="opt"><input type="radio" name="n_natimp" value="strong"><span class="opt-body"><span class="opt-label">Clear national or global implications</span></span></label>
+      <label class="opt"><input type="radio" name="n_natimp" value="some"><span class="opt-body"><span class="opt-label">Regional or sector-wide, but not clearly national</span></span></label>
+      <label class="opt"><input type="radio" name="n_natimp" value="none"><span class="opt-body"><span class="opt-label">Mainly benefits one employer / locality</span></span></label>
+    </div>
+  </div>
+  <div class="nav-row"><button class="btn btn-ghost" onclick="go(0)">← Back</button><button class="btn btn-primary" id="next1" onclick="go(2)" disabled>Continue <span class="arrow">→</span></button></div>
+</div>
+
+<!-- STEP 2 — well positioned -->
+<div class="step" data-step="2">
+  <div class="eyebrow">Step 2 · Prong 2 — Well-positioned</div>
+  <h1>Are you the person to advance it?</h1>
+  <div class="q-block">
+    <div class="q-num">P2 · Track record</div>
+    <div class="q-title">What's your record of success in this area?</div>
+    <div class="q-help">Publications with citations, funded work, adopted products, prior results, recognition. Evidence you've advanced similar work before.</div>
+    <div class="opt-list" data-single="n_record">
+      <label class="opt"><input type="radio" name="n_record" value="strong"><span class="opt-body"><span class="opt-label">Strong, documented record of relevant success</span></span></label>
+      <label class="opt"><input type="radio" name="n_record" value="some"><span class="opt-body"><span class="opt-label">Some results, still building</span></span></label>
+      <label class="opt"><input type="radio" name="n_record" value="none"><span class="opt-body"><span class="opt-label">Early — limited documented results so far</span></span></label>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">P2 · Skills & qualifications</div>
+    <div class="q-title">How well do your qualifications match this endeavor?</div>
+    <div class="q-help">Advanced degree, specialized expertise, demonstrated skills directly relevant to advancing this specific work.</div>
+    <div class="opt-list" data-single="n_skills">
+      <label class="opt"><input type="radio" name="n_skills" value="strong"><span class="opt-body"><span class="opt-label">Highly qualified, directly relevant expertise</span></span></label>
+      <label class="opt"><input type="radio" name="n_skills" value="some"><span class="opt-body"><span class="opt-label">Qualified, somewhat adjacent</span></span></label>
+      <label class="opt"><input type="radio" name="n_skills" value="none"><span class="opt-body"><span class="opt-label">Still developing the relevant expertise</span></span></label>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">P2 · Progress & resources</div>
+    <div class="q-title">Is there evidence of progress and a realistic path forward?</div>
+    <div class="q-help">Funding, interest from stakeholders, a plan others find credible, momentum, institutional or investor backing.</div>
+    <div class="opt-list" data-single="n_progress">
+      <label class="opt"><input type="radio" name="n_progress" value="strong"><span class="opt-body"><span class="opt-label">Demonstrable progress, credible path, backing</span></span></label>
+      <label class="opt"><input type="radio" name="n_progress" value="some"><span class="opt-body"><span class="opt-label">Early progress, plan still forming</span></span></label>
+      <label class="opt"><input type="radio" name="n_progress" value="none"><span class="opt-body"><span class="opt-label">Mostly intention, little concrete progress yet</span></span></label>
+    </div>
+  </div>
+  <div class="nav-row"><button class="btn btn-ghost" onclick="go(1)">← Back</button><button class="btn btn-primary" id="next2" onclick="go(3)" disabled>Continue <span class="arrow">→</span></button></div>
+</div>
+
+<!-- STEP 3 — balancing / waiver benefit -->
+<div class="step" data-step="3">
+  <div class="eyebrow">Step 3 · Prong 3 — Why waive the requirement</div>
+  <h1>Why is it in the US interest to skip the normal process?</h1>
+  <div class="q-block">
+    <div class="q-num">P3 · Impracticality of labor cert</div>
+    <div class="q-title">Would requiring a job offer & labor certification be impractical for you?</div>
+    <div class="q-help">e.g. you're self-employed/a founder, your work is entrepreneurial or spans employers, or a single sponsoring job doesn't fit how the work happens.</div>
+    <div class="opt-list" data-single="n_imprac">
+      <label class="opt"><input type="radio" name="n_imprac" value="strong"><span class="opt-body"><span class="opt-label">Yes — clearly impractical (founder/self-directed/cross-employer)</span></span></label>
+      <label class="opt"><input type="radio" name="n_imprac" value="some"><span class="opt-body"><span class="opt-label">Somewhat — could argue it</span></span></label>
+      <label class="opt"><input type="radio" name="n_imprac" value="none"><span class="opt-body"><span class="opt-label">No — a normal sponsored job would fit fine</span></span></label>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">P3 · Urgency / benefit of contribution</div>
+    <div class="q-title">Is the benefit of your contribution urgent or significant enough to outweigh the protections labor certification provides?</div>
+    <div class="q-help">USCIS weighs whether the US gains enough from waiving the process. Time-sensitive, high-impact, or scarce-expertise work strengthens this.</div>
+    <div class="opt-list" data-single="n_benefit">
+      <label class="opt"><input type="radio" name="n_benefit" value="strong"><span class="opt-body"><span class="opt-label">Strong — urgent and/or high-impact contribution</span></span></label>
+      <label class="opt"><input type="radio" name="n_benefit" value="some"><span class="opt-body"><span class="opt-label">Moderate</span></span></label>
+      <label class="opt"><input type="radio" name="n_benefit" value="none"><span class="opt-body"><span class="opt-label">Hard to argue it outweighs the normal process</span></span></label>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="q-num">Context</div>
+    <div class="q-title">Do you hold an advanced degree, or can you show exceptional ability?</div>
+    <div class="q-help">EB-2 itself requires an advanced degree (or its equivalent) OR exceptional ability. This is the EB-2 gate before NIW even applies.</div>
+    <div class="opt-list" data-single="n_eb2gate">
+      <label class="opt"><input type="radio" name="n_eb2gate" value="yes"><span class="opt-body"><span class="opt-label">Yes — Master's+/equivalent, or exceptional ability</span></span></label>
+      <label class="opt"><input type="radio" name="n_eb2gate" value="bachelor5"><span class="opt-body"><span class="opt-label">Bachelor's + 5 years progressive experience</span><span class="opt-sub">Counts as advanced-degree equivalent for EB-2</span></span></label>
+      <label class="opt"><input type="radio" name="n_eb2gate" value="no"><span class="opt-body"><span class="opt-label">No / not sure</span><span class="opt-sub">This gates EB-2 itself — the plan will flag it</span></span></label>
+    </div>
+  </div>
+  <div class="nav-row"><button class="btn btn-ghost" onclick="go(2)">← Back</button><button class="btn btn-primary" id="next3" onclick="calculate()" disabled>See my NIW Score <span class="arrow">→</span></button></div>
+</div>
+
+<!-- STEP 4 — RESULT -->
+<div class="step" data-step="4">
+  <div class="eyebrow">Your result</div>
+  <div class="score-hero">
+    <div class="score-ring-wrap">
+      <svg viewBox="0 0 240 240" width="240" height="240">
+        <circle cx="120" cy="120" r="104" fill="none" stroke="#EAE2D0" stroke-width="14"/>
+        <circle id="scoreRing" cx="120" cy="120" r="104" fill="none" stroke-width="14" stroke-linecap="round" transform="rotate(-90 120 120)" stroke-dasharray="653.45" stroke-dashoffset="653.45"/>
+      </svg>
+      <div class="score-num"><div class="score-val" id="scoreVal">—</div><div class="score-outof">/ 100 · EB-2 NIW</div></div>
+    </div>
+    <div class="score-verdict" id="scoreVerdict"></div>
+    <p class="score-sub" id="scoreSub"></p>
+  </div>
+  <div class="summary-card">
+    <h3>The honest read</h3>
+    <div class="summary-line"><b>Weakest prong</b><span id="sumWeak"></span></div>
+    <div class="summary-line"><b>NIW rule</b><span>All three Dhanasar prongs must be satisfied. A strong prong cannot rescue a failing one — your score is gated by the weakest.</span></div>
+    <div class="summary-line"><b>Fix this first</b><span id="sumFix"></span></div>
+  </div>
+  <div class="section-h">Prong-by-prong</div>
+  <div id="prongList"></div>
+  <div class="section-h">Your plan — fix the weakest prong first</div>
+  <div id="planList"></div>
+  <div class="cta-final">
+    <h3>This is the free part. <em>The plan is the product.</em></h3>
+    <p>Hyphen tracks these actions, helps you build the evidence, and re-scores you as you strengthen each prong — so when all three are solid, your petition is already taking shape. Get notified when the full Navigator opens.</p>
+    <div class="email-row"><input type="email" id="emailCapture" placeholder="you@email.com" /><button onclick="capture()">Notify me</button></div>
+    <div class="email-note" id="emailDone" style="display:none;">✓ SAVED LOCALLY — THIS IS A PROTOTYPE</div>
+    <div class="email-note" style="margin-top:14px;">NO ACCOUNT · NOTHING SHARED · PROTOTYPE</div>
+  </div>
+  <div class="restart"><a onclick="restartAll()">↺ Start over</a> &nbsp;·&nbsp; <a href="./">Check your O-1A instead →</a></div>
+</div>
+
+</div></div>
+
+<div class="legal-foot"><div class="wrap"><p>Hyphen is not a law firm and does not provide legal advice. The Hyphen Score is informational strength guidance derived from the published EB-2 National Interest Waiver framework in <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016), and is not a prediction, promise, or guarantee of any immigration outcome. Immigration outcomes are determined solely by U.S. government agencies. This prototype runs entirely in your browser; no data is transmitted or stored on a server. For legal advice about your specific case, consult a licensed immigration attorney.</p></div></div>
+
+<script>
+let current=0; const answers={};
+function start(){ startFresh(); }
+function go(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.querySelector('.step[data-step="'+n+'"]').classList.add('active');
+  current=n; window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('input[type=radio]').forEach(r=>{
+  r.addEventListener('change',e=>{
+    answers[e.target.name]=e.target.value;
+    const g=e.target.closest('.opt-list'); if(g)g.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    e.target.closest('.opt').classList.add('sel'); gates();
+  });
+});
+document.getElementById('q_field').addEventListener('change',e=>{answers['q_field']=e.target.value;gates();});
+function gates(){
+  document.getElementById('next1').disabled=!(answers['q_field']&&answers['n_merit']&&answers['n_natimp']);
+  document.getElementById('next2').disabled=!(answers['n_record']&&answers['n_skills']&&answers['n_progress']);
+  document.getElementById('next3').disabled=!(answers['n_imprac']&&answers['n_benefit']&&answers['n_eb2gate']);
+}
+const V={strong:88,some:52,none:16};
+
+// ---- Dhanasar three-prong engine (validated model) ----
+function computeNIW(a){
+  const p1 = (V[a.n_merit]*0.6 + V[a.n_natimp]*0.4);                 // endeavor: merit + national importance
+  const p2 = (V[a.n_record]*0.4 + V[a.n_skills]*0.3 + V[a.n_progress]*0.3); // well-positioned
+  const p3 = (V[a.n_imprac]*0.45 + V[a.n_benefit]*0.55);             // benefit of waiver
+  const prongs=[p1,p2,p3];
+  const weakest=Math.min(...prongs);
+  const avg=(p1+p2+p3)/3;
+  // All-prongs-required: composite is gated by the weakest link.
+  let comp = weakest*0.6 + avg*0.4;
+  if (weakest<40) comp=Math.min(comp,34);
+  else if (weakest<55) comp=Math.min(comp,55);
+  if (weakest>=75) comp=Math.max(comp,78);
+  // EB-2 gate: no advanced degree / exceptional ability => NIW is moot until fixed
+  let eb2blocked=false;
+  if (a.n_eb2gate==='no'){ comp=Math.min(comp,30); eb2blocked=true; }
+  comp=Math.max(3,Math.min(100,Math.round(comp)));
+  return {comp,p1:Math.round(p1),p2:Math.round(p2),p3:Math.round(p3),weakest:Math.round(weakest),eb2blocked};
+}
+function band(v){return v<45?'low':v<65?'mid':'high';}
+
+function calculate(){
+  const r=computeNIW(answers);
+  render(r); go(4);
+}
+
+const PRONGS=[
+  {key:'p1',name:'Prong 1 — Substantial merit & national importance',
+   sub:'Is the endeavor specific, valuable, and nationally important?',
+   fix:{action:'Sharpen and elevate your endeavor',detail:'Rewrite it from "I am skilled at X" to "I will do specific-thing Y, which matters nationally because Z." Specificity + national framing is the #1 NIW fix.'}},
+  {key:'p2',name:'Prong 2 — Well-positioned to advance it',
+   sub:'Record, qualifications, progress, and a credible path forward.',
+   fix:{action:'Strengthen the evidence you can deliver this',detail:'Assemble proof of past results, relevant qualifications, and concrete progress/backing. Letters from credible experts attesting you are positioned to succeed.'}},
+  {key:'p3',name:'Prong 3 — Benefit of waiving the job-offer requirement',
+   sub:'Why it serves the US to skip labor certification for you.',
+   fix:{action:'Build the waiver-benefit argument',detail:'Document why a sponsored job is impractical (founder/self-directed/cross-employer) and why your contribution is urgent or significant enough to outweigh the normal process.'}},
+];
+
+function render(r){
+  const ring=document.getElementById('scoreRing'), circ=653.45, b=band(r.comp);
+  ring.classList.remove('stroke-low','stroke-mid','stroke-high'); ring.classList.add('stroke-'+b);
+  setTimeout(()=>{ring.style.transition='stroke-dashoffset 1.3s cubic-bezier(.16,1,.3,1)';ring.style.strokeDashoffset=circ-(circ*r.comp/100);},120);
+  const valEl=document.getElementById('scoreVal'); valEl.className='score-val band-'+b;
+  let n=0,st=Math.max(1,Math.round(r.comp/40)); const iv=setInterval(()=>{n+=st;if(n>=r.comp){n=r.comp;clearInterval(iv);}valEl.textContent=n;},26);
+
+  const vEl=document.getElementById('scoreVerdict'), sEl=document.getElementById('scoreSub');
+  if (r.eb2blocked){
+    vEl.textContent='EB-2 itself is the first hurdle.';
+    sEl.textContent='NIW is a waiver within the EB-2 category. Without an advanced degree (or equivalent) or exceptional ability, EB-2 is not yet available — that gate must be solved before NIW is meaningful. The plan starts there.';
+  } else if (r.comp>=65){
+    vEl.textContent='You are in real range.';
+    sEl.textContent='All three prongs appear adequately evidenced. The work now is documentation and a well-built petition — and this is the point to talk to an attorney.';
+  } else if (r.comp>=45){
+    vEl.textContent='One prong is holding you back.';
+    sEl.textContent='NIW requires all three. You are close on some but a specific prong is weak — and a strong prong cannot rescue a weak one. The plan targets exactly the prong that is costing you.';
+  } else {
+    vEl.textContent='A real path, with real work.';
+    sEl.textContent='At least one prong is currently failing. NIW is not realistic until it is fixed — but it is buildable. The plan shows the specific prong to rebuild first.';
+  }
+  vEl.className='score-verdict band-'+b;
+
+  const wp = PRONGS.find(p=>r[p.key]===r.weakest) || PRONGS[0];
+  document.getElementById('sumWeak').textContent = wp.name.split(' — ')[0]+' ('+r.weakest+') — '+wp.name.split(' — ')[1];
+  document.getElementById('sumFix').textContent = r.eb2blocked
+    ? 'Establish EB-2 eligibility (advanced degree / equivalent / exceptional ability) first.'
+    : wp.fix.action;
+
+  const pl=document.getElementById('prongList'); pl.innerHTML='';
+  PRONGS.forEach(p=>{
+    const v=r[p.key], bb=band(v);
+    const status=v>=65?'SOLID':v>=45?'WEAK':'FAILING';
+    const note=v>=65?'Adequately evidenced — needs clean documentation in the petition.'
+      :v>=45?'Weak. This prong can sink the whole case — targeted work needed.'
+      :'Currently failing. NIW cannot succeed until this prong is rebuilt.';
+    pl.innerHTML+=`<div class="prong-row"><div class="prong-top"><div class="prong-name">${p.name}</div><div class="prong-status band-${bb}">${status} · ${v}</div></div><div class="prong-sub">${p.sub}</div><div class="prong-bar-track"><div class="prong-bar ${bb}" style="width:${v}%"></div></div><div class="prong-note">${note}</div></div>`;
+  });
+
+  // Plan: fix weakest prong first, then next weakest, then attorney.
+  const ordered=[...PRONGS].sort((x,y)=>r[x.key]-r[y.key]);
+  const plan=[];
+  if (r.eb2blocked) plan.push({action:'Establish EB-2 eligibility first',detail:'Confirm an advanced degree or its equivalent (Bachelor\u2019s + 5 yrs progressive experience), or build an exceptional-ability case. NIW is a waiver inside EB-2 — this gate comes before the three prongs.',lift:'Unblocks NIW'});
+  ordered.forEach(p=>{ if(r[p.key]<65) plan.push({action:p.fix.action,detail:p.fix.detail,lift:'Raises Prong '+p.key.slice(1)}); });
+  plan.push(r.comp>=65
+    ? {action:'Talk to a licensed immigration attorney now',detail:'All three prongs appear met. The bottleneck is petition quality and documentation, not eligibility — this is where counsel adds the most value.',lift:'Next real step'}
+    : {action:'Re-check your Score after strengthening the weak prong',detail:'NIW is all-or-nothing on the three prongs. Fix the weakest, re-run this, repeat until all three are solid — then the next step is an attorney.',lift:'Then: attorney'});
+  const PL=document.getElementById('planList'); PL.innerHTML='';
+  plan.forEach((p,i)=>{PL.innerHTML+=`<div class="plan-item"><div class="plan-n">${String(i+1).padStart(2,'0')}</div><div class="plan-action">${p.action}<span>${p.detail}</span></div><div class="plan-lift">${p.lift}</div></div>`;});
+}
+
+function capture(){
+  const e=document.getElementById('emailCapture').value.trim();
+  if(!e||!e.includes('@')){document.getElementById('emailCapture').focus();return;}
+  try{localStorage.setItem('hyphen_niw_waitlist',e);}catch(_){}
+  document.getElementById('emailDone').style.display='block';
+  document.getElementById('emailCapture').value='';
+}
+function startFresh(){
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  const f=document.getElementById('q_field'); if(f)f.value='';
+  ['next1','next2','next3'].forEach(id=>{const x=document.getElementById(id);if(x)x.disabled=true;});
+  const ring=document.getElementById('scoreRing'); ring.style.transition='none'; ring.style.strokeDashoffset='653.45'; ring.classList.remove('stroke-low','stroke-mid','stroke-high');
+  go(1);
+}
+function restartAll(){ startFresh(); go(0); }
+</script>
+</body>
+</html>
