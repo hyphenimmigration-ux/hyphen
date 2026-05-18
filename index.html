@@ -490,7 +490,7 @@ let current = 0;
 const totalSteps = 6;
 const answers = {};
 
-function start(){ go(1); }
+function start(){ startFresh(); }
 
 function go(n){
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
@@ -898,11 +898,26 @@ function restartAll(){
 // ---- RETURN VISIT: restore saved Score & progress ----
 window.addEventListener('DOMContentLoaded', () => {
   const saved = loadState();
-  if (!saved || !saved.answers || Object.keys(saved.answers).length === 0) return;
-  // Restore state silently and show a "welcome back" path straight to results.
-  Object.assign(answers, saved.answers);
-  window._completed = saved.completed || [];
-  window._firstScore = saved.firstScore;
+  // Only treat it as a valid resumable session if it has a COMPLETE answer
+  // set (all required keys). Partial/stale data from older versions is
+  // ignored — it must never bleed into a fresh run.
+  const REQUIRED = ['q_field','q_stage','c_award','c_prizes','c_member','c_press',
+                    'c_judge','c_orig','c_scholar','c_role','c_salary'];
+  const valid = saved && saved.answers &&
+                REQUIRED.every(k => saved.answers[k] !== undefined);
+  if (!valid) {
+    // Wipe any junk so it can't contaminate this session.
+    try { localStorage.removeItem(STORE_KEY); } catch(_) {}
+    return;
+  }
+
+  // Keep the saved snapshot OUT of the live `answers` object. It is only
+  // applied if the user explicitly clicks "see my saved score".
+  window._savedSnapshot = {
+    answers: saved.answers,
+    completed: saved.completed || [],
+    firstScore: saved.firstScore
+  };
 
   const intro = document.querySelector('.step[data-step="0"]');
   if (intro) {
@@ -913,13 +928,33 @@ window.addEventListener('DOMContentLoaded', () => {
     banner.innerHTML = `
       <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--sunset);text-transform:uppercase;margin-bottom:8px;">Welcome back</div>
       <div style="font-size:15px;line-height:1.5;margin-bottom:16px;">You saved your O-1A Score ${when}. Your progress and plan are still here.</div>
-      <button class="btn btn-primary" onclick="resumeSaved()" style="padding:13px 24px;font-size:14px;">See my saved Score &amp; progress →</button>`;
+      <button class="btn btn-primary" onclick="resumeSaved()" style="padding:13px 24px;font-size:14px;margin-right:10px;">See my saved Score &amp; progress →</button>
+      <button class="btn btn-ghost" onclick="this.closest('div').remove(); startFresh();" style="padding:13px 20px;font-size:13px;">Start a new one</button>`;
     intro.insertBefore(banner, intro.firstChild);
   }
 });
 
+// Explicit fresh start — guarantees zero contamination from any prior state.
+function startFresh(){
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  window._completed = [];
+  window._firstScore = undefined;
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  const f=document.getElementById('q_field'); if(f) f.value='';
+  ['next1','next2','next3','next4','next5'].forEach(id=>{const e=document.getElementById(id); if(e) e.disabled=true;});
+  go(1);
+}
+
 function resumeSaved(){
-  const r = computeScore(answers, window._completed || []);
+  const snap = window._savedSnapshot;
+  if (!snap) { startFresh(); return; }
+  // Apply the snapshot ONLY now, explicitly, replacing live state entirely.
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  Object.assign(answers, snap.answers);
+  window._completed = snap.completed || [];
+  window._firstScore = snap.firstScore;
+  const r = computeScore(answers, window._completed);
   if (window._firstScore === undefined) window._firstScore = r.composite;
   renderResult(r.composite, r.scored, r.metCount, r.majorAward);
   go(6);
