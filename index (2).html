@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hyphen — Your O-1A Score</title>
+<meta name="description" content="Know where you actually stand for the O-1A visa. Free, honest strength guidance across all 8 USCIS criteria, plus your exact 18-month plan." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAF6EE; --bg-card: #F2EBDC; --bg-deep: #EAE2D0;
+  --ink: #1C1614; --ink-soft: #3A322C;
+  --sunset: #D97843; --sunset-deep: #B85D2A;
+  --indigo: #1E2D5C; --gold: #B89456;
+  --rule: #C9BFA8; --muted: #6B6259;
+  --green: #3B7A52; --amber: #B8923C; --red: #B8463A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter Tight', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--indigo); color: var(--bg); }
+
+.paper::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 99; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"); mix-blend-mode: multiply; opacity: 0.4; }
+
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+/* TOP */
+.topbar { border-bottom: 1px solid var(--rule); padding: 22px 0; }
+.topbar .wrap { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; }
+.logo { font-family: 'Fraunces', serif; font-weight: 500; font-size: 24px; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 100; display: flex; align-items: baseline; }
+.logo-dash { display: inline-block; width: 13px; height: 2px; background: var(--sunset); margin: 0 2px 5px; }
+.topbar-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+
+.disclaimer-strip { background: var(--bg-deep); border-bottom: 1px solid var(--rule); padding: 12px 0; }
+.disclaimer-strip .wrap { max-width: 1100px; }
+.disclaimer-strip p { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-soft); text-align: center; line-height: 1.5; }
+.disclaimer-strip strong { color: var(--ink); }
+
+/* PROGRESS */
+.progress-bar { position: sticky; top: 0; z-index: 40; background: var(--bg); border-bottom: 1px solid var(--rule); padding: 16px 0; }
+.progress-bar .wrap { display: flex; align-items: center; gap: 16px; }
+.progress-track { flex: 1; height: 5px; background: var(--bg-deep); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--sunset); border-radius: 4px; transition: width 0.4s cubic-bezier(0.16,1,0.3,1); width: 0%; }
+.progress-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+/* STEPS */
+.stage { padding: 56px 0 90px; }
+.step { display: none; animation: fadeIn 0.45s ease both; }
+.step.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--sunset-deep); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--sunset); }
+
+h1 { font-family: 'Fraunces', serif; font-weight: 400; font-size: clamp(34px, 5.5vw, 56px); line-height: 1.02; letter-spacing: -0.03em; font-variation-settings: "opsz" 144, "SOFT" 60, "WONK" 1; margin-bottom: 22px; }
+h1 em { font-style: italic; color: var(--sunset); }
+.lead { font-size: 18px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 36px; max-width: 56ch; }
+.lead strong { color: var(--ink); font-weight: 500; }
+
+.q-block { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--rule); }
+.q-block:last-of-type { border-bottom: none; }
+.q-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--sunset-deep); letter-spacing: 0.1em; margin-bottom: 10px; }
+.q-title { font-family: 'Fraunces', serif; font-size: 23px; line-height: 1.25; letter-spacing: -0.015em; margin-bottom: 6px; font-variation-settings: "opsz" 36, "SOFT" 60; }
+.q-help { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+
+.opt-list { display: flex; flex-direction: column; gap: 10px; }
+.opt { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; border: 1px solid var(--rule); background: var(--bg-card); cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
+.opt:hover { border-color: var(--sunset); }
+.opt.sel { border-color: var(--ink); background: var(--bg-deep); }
+.opt input { margin-top: 3px; accent-color: var(--sunset-deep); width: 16px; height: 16px; flex-shrink: 0; }
+.opt-body { flex: 1; }
+.opt-label { font-size: 15px; font-weight: 500; line-height: 1.4; }
+.opt-sub { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+
+.field { margin-bottom: 4px; }
+.field input[type=text], .field select { width: 100%; padding: 14px 16px; border: 1px solid var(--rule); background: var(--bg-card); font-family: 'Inter Tight', sans-serif; font-size: 15px; color: var(--ink); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--sunset); }
+
+.nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 44px; gap: 16px; }
+.btn { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 500; padding: 16px 30px; border: none; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; display: inline-flex; align-items: center; gap: 10px; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--sunset-deep); transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--rule); color: var(--muted); cursor: not-allowed; transform: none; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+.btn .arrow { transition: transform 0.15s ease; }
+.btn-primary:hover:not(:disabled) .arrow { transform: translateX(3px); }
+
+/* RESULT */
+.score-hero { text-align: center; padding: 20px 0 50px; }
+.score-ring-wrap { position: relative; width: 240px; height: 240px; margin: 0 auto 28px; }
+.score-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.score-val { font-family: 'Fraunces', serif; font-size: 76px; font-weight: 400; line-height: 1; letter-spacing: -0.04em; font-variation-settings: "opsz" 144; }
+.score-outof { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.14em; margin-top: 6px; }
+.score-verdict { font-family: 'Fraunces', serif; font-size: 26px; font-style: italic; margin-bottom: 12px; font-variation-settings: "opsz" 36, "SOFT" 80; }
+.score-sub { font-size: 16px; color: var(--ink-soft); max-width: 54ch; margin: 0 auto; line-height: 1.55; }
+
+.band-low { color: var(--red); }
+.band-mid { color: var(--amber); }
+.band-high { color: var(--green); }
+.stroke-low { stroke: var(--red); }
+.stroke-mid { stroke: var(--amber); }
+.stroke-high { stroke: var(--green); }
+
+.section-h { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--sunset-deep); margin: 56px 0 24px; display: flex; align-items: center; gap: 12px; }
+.section-h::before { content: ""; width: 26px; height: 1px; background: var(--sunset); }
+
+.crit-row { padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.crit-row:last-child { border-bottom: none; }
+.crit-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.crit-name { font-family: 'Fraunces', serif; font-size: 18px; font-variation-settings: "opsz" 36, "SOFT" 60; letter-spacing: -0.01em; }
+.crit-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.crit-bar-track { height: 6px; background: var(--bg-deep); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+.crit-bar { height: 100%; border-radius: 4px; transform-origin: left; animation: grow 0.9s 0.2s both cubic-bezier(0.16,1,0.3,1); }
+.crit-bar.low { background: var(--red); } .crit-bar.mid { background: var(--amber); } .crit-bar.high { background: var(--green); }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.crit-note { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+.summary-card { background: var(--ink); color: var(--bg); padding: 32px 30px; margin: 32px 0; position: relative; }
+.summary-card::before { content: ""; position: absolute; top: -6px; left: -6px; right: 6px; bottom: 6px; border: 1px solid var(--sunset); pointer-events: none; z-index: -1; }
+.summary-card h3 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--sunset); margin-bottom: 18px; }
+.summary-line { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(250,246,238,0.14); font-size: 15px; line-height: 1.5; }
+.summary-line:last-child { border-bottom: none; }
+.summary-line b { color: var(--sunset); font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; flex-shrink: 0; }
+
+.plan-item { padding: 22px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 38px 1fr auto; gap: 20px; align-items: start; }
+.plan-item:last-child { border-bottom: none; }
+.plan-n { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; color: var(--sunset); font-variation-settings: "opsz" 36, "SOFT" 100, "WONK" 1; }
+.plan-action { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.plan-action span { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+.plan-lift { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--green); white-space: nowrap; padding-top: 2px; }
+
+.cta-final { background: var(--bg-card); border: 1px solid var(--rule); padding: 38px 34px; margin: 50px 0 0; text-align: center; }
+.cta-final h3 { font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 12px; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 60; }
+.cta-final h3 em { font-style: italic; color: var(--sunset); }
+.cta-final p { font-size: 15px; color: var(--ink-soft); max-width: 50ch; margin: 0 auto 26px; line-height: 1.55; }
+.email-row { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+.email-row input { flex: 1; padding: 15px 16px; border: 1px solid var(--rule); background: var(--bg); font-family: 'Inter Tight', sans-serif; font-size: 15px; }
+.email-row input:focus { outline: none; border-color: var(--sunset); }
+.email-row button { background: var(--ink); color: var(--bg); border: none; padding: 15px 24px; font-weight: 500; cursor: pointer; font-size: 14px; }
+.email-note { font-size: 12px; color: var(--muted); margin-top: 14px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+.restart { text-align: center; margin-top: 36px; }
+.restart a { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); cursor: pointer; letter-spacing: 0.06em; }
+.restart a:hover { color: var(--ink); }
+
+.legal-foot { border-top: 1px solid var(--rule); padding: 32px 0 60px; }
+.legal-foot p { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.65; color: var(--muted); letter-spacing: 0.03em; }
+
+@media (max-width: 600px) {
+  .plan-item { grid-template-columns: 28px 1fr; }
+  .plan-lift { grid-column: 2; padding-top: 6px; }
+  .email-row { flex-direction: column; }
+  .nav-row { flex-direction: column-reverse; }
+  .nav-row .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body class="paper">
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="logo">Hyp<span class="logo-dash"></span>en</div>
+    <div class="topbar-tag">O-1A STRENGTH SCORE · BETA</div>
+  </div>
+</div>
+
+<div class="disclaimer-strip">
+  <div class="wrap">
+    <p><strong>Not legal advice. Not a law firm.</strong> This is informational strength guidance based on the 8 USCIS O-1A criteria — not a prediction, promise, or guarantee. Only USCIS decides outcomes.</p>
+  </div>
+</div>
+
+<div class="progress-bar" id="progressBar" style="display:none;">
+  <div class="wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">Step 1 of 6</div>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="wrap">
+
+    <!-- STEP 0 — INTRO -->
+    <div class="step active" data-step="0">
+      <div class="eyebrow">The honest O-1A check</div>
+      <h1>Know where you <em>actually</em> stand for the O-1A.</h1>
+      <p class="lead">
+        The O-1A is the "extraordinary ability" visa — and most people are told "you're not
+        ready" with no definition of <em>ready</em>. In 8 minutes, this gives you a real score
+        across all <strong>8 USCIS criteria</strong>, shows you exactly which ones you meet,
+        and gives you the specific plan to close the gap. Free. No account. Nothing to lose by
+        finding out.
+      </p>
+      <p class="lead" style="font-size:15px; color:var(--muted);">
+        USCIS requires you to satisfy <strong>at least 3 of the 8 criteria</strong> (or a one-time
+        major international award). This tool estimates how strongly your profile evidences each one.
+      </p>
+      <div class="nav-row">
+        <span></span>
+        <button class="btn btn-primary" onclick="start()">Start — it's free <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 1 — BASICS -->
+    <div class="step" data-step="1">
+      <div class="eyebrow">Step 1 · Your field</div>
+      <h1>First, the basics.</h1>
+      <div class="q-block">
+        <div class="q-num">Q1</div>
+        <div class="q-title">What field is your extraordinary ability in?</div>
+        <div class="q-help">O-1A covers sciences, business, education, and athletics. (Arts and film use O-1B — a different test.)</div>
+        <div class="field">
+          <select id="q_field">
+            <option value="">Select your field…</option>
+            <option>Software / Engineering / Technology</option>
+            <option>Sciences / Research / Academia</option>
+            <option>Business / Entrepreneurship / Finance</option>
+            <option>Education</option>
+            <option>Athletics</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="q-block">
+        <div class="q-num">Q2</div>
+        <div class="q-title">Where are you in your journey?</div>
+        <div class="opt-list" data-single="q_stage">
+          <label class="opt"><input type="radio" name="q_stage" value="student"><span class="opt-body"><span class="opt-label">Student / early career</span><span class="opt-sub">In a degree program or &lt;3 years professional experience</span></span></label>
+          <label class="opt"><input type="radio" name="q_stage" value="mid"><span class="opt-body"><span class="opt-label">Mid-career professional</span><span class="opt-sub">3–8 years, established but still building recognition</span></span></label>
+          <label class="opt"><input type="radio" name="q_stage" value="senior"><span class="opt-body"><span class="opt-label">Senior / recognized</span><span class="opt-sub">8+ years, or already notable in your field</span></span></label>
+          <label class="opt"><input type="radio" name="q_stage" value="founder"><span class="opt-body"><span class="opt-label">Founder / building a company</span><span class="opt-sub">Running a startup (this opens specific O-1A evidence paths)</span></span></label>
+        </div>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="go(0)">← Back</button>
+        <button class="btn btn-primary" id="next1" onclick="go(2)" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — AWARDS / MEMBERSHIP / PRESS -->
+    <div class="step" data-step="2">
+      <div class="eyebrow">Step 2 · Recognition</div>
+      <h1>Awards, memberships, press.</h1>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 1 · Major award</div>
+        <div class="q-title">Have you received a major internationally-recognized award?</div>
+        <div class="q-help">This is the rare "one and done" — a Nobel, Turing, Olympic medal, Fields Medal level. Almost nobody has this; that's normal.</div>
+        <div class="opt-list" data-single="c_award">
+          <label class="opt"><input type="radio" name="c_award" value="yes"><span class="opt-body"><span class="opt-label">Yes — a top-tier international award</span></span></label>
+          <label class="opt"><input type="radio" name="c_award" value="no"><span class="opt-body"><span class="opt-label">No</span><span class="opt-sub">Completely normal — you qualify via the 8 criteria instead</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 2 · Lesser awards</div>
+        <div class="q-title">Have you won nationally or internationally recognized awards or prizes for excellence?</div>
+        <div class="q-help">Hackathon wins at major events, best-paper awards, industry prizes, pitch competition wins, ranked competition placements.</div>
+        <div class="opt-list" data-single="c_prizes">
+          <label class="opt"><input type="radio" name="c_prizes" value="strong"><span class="opt-body"><span class="opt-label">Yes — multiple, well-known in my field</span></span></label>
+          <label class="opt"><input type="radio" name="c_prizes" value="some"><span class="opt-body"><span class="opt-label">One or two, or smaller-scale</span></span></label>
+          <label class="opt"><input type="radio" name="c_prizes" value="none"><span class="opt-body"><span class="opt-label">Not yet</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 3 · Exclusive membership</div>
+        <div class="q-title">Do you belong to associations that require outstanding achievement to join?</div>
+        <div class="q-help">Membership judged by recognized experts — e.g. IEEE Senior/Fellow, invited fellowships, juried collectives. Paid/open-to-all memberships do not count.</div>
+        <div class="opt-list" data-single="c_member">
+          <label class="opt"><input type="radio" name="c_member" value="strong"><span class="opt-body"><span class="opt-label">Yes — selective, judged by experts</span></span></label>
+          <label class="opt"><input type="radio" name="c_member" value="weak"><span class="opt-body"><span class="opt-label">Member of associations, but not selective</span></span></label>
+          <label class="opt"><input type="radio" name="c_member" value="none"><span class="opt-body"><span class="opt-label">No</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 4 · Press</div>
+        <div class="q-title">Has there been published material about you and your work?</div>
+        <div class="q-help">Articles in professional or major media <em>about you</em> (not just quoting you, not self-published). TechCrunch, trade press, major newspapers, well-known industry blogs.</div>
+        <div class="opt-list" data-single="c_press">
+          <label class="opt"><input type="radio" name="c_press" value="strong"><span class="opt-body"><span class="opt-label">Yes — multiple substantial pieces about me/my work</span></span></label>
+          <label class="opt"><input type="radio" name="c_press" value="some"><span class="opt-body"><span class="opt-label">A little — one piece, or mostly quotes/mentions</span></span></label>
+          <label class="opt"><input type="radio" name="c_press" value="none"><span class="opt-body"><span class="opt-label">None yet</span></span></label>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="go(1)">← Back</button>
+        <button class="btn btn-primary" id="next2" onclick="go(3)" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — JUDGING / ORIGINAL CONTRIB / SCHOLARLY -->
+    <div class="step" data-step="3">
+      <div class="eyebrow">Step 3 · Contribution</div>
+      <h1>Judging, impact, scholarship.</h1>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 5 · Judging</div>
+        <div class="q-title">Have you judged the work of others in your field?</div>
+        <div class="q-help">Peer-reviewing papers, hackathon/grant judging, on a selection committee, conference program committee, technical interview panels for senior roles count when documented.</div>
+        <div class="opt-list" data-single="c_judge">
+          <label class="opt"><input type="radio" name="c_judge" value="strong"><span class="opt-body"><span class="opt-label">Yes — multiple times, documentable</span></span></label>
+          <label class="opt"><input type="radio" name="c_judge" value="some"><span class="opt-body"><span class="opt-label">Once or informally</span></span></label>
+          <label class="opt"><input type="radio" name="c_judge" value="none"><span class="opt-body"><span class="opt-label">Not yet</span><span class="opt-sub">This is one of the fastest criteria to build</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 6 · Original contributions</div>
+        <div class="q-title">Have you made original contributions of major significance to your field?</div>
+        <div class="q-help">Widely-adopted open source, a patented invention in use, a method/product others build on, measurable industry impact. Needs third-party proof (citations, adoption, expert letters).</div>
+        <div class="opt-list" data-single="c_orig">
+          <label class="opt"><input type="radio" name="c_orig" value="strong"><span class="opt-body"><span class="opt-label">Yes — with evidence others use/cite it</span></span></label>
+          <label class="opt"><input type="radio" name="c_orig" value="some"><span class="opt-body"><span class="opt-label">I've done original work, but limited proof of impact</span></span></label>
+          <label class="opt"><input type="radio" name="c_orig" value="none"><span class="opt-body"><span class="opt-label">Not yet</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 7 · Scholarly articles</div>
+        <div class="q-title">Have you authored scholarly articles in your field?</div>
+        <div class="q-help">Peer-reviewed papers, conference proceedings, or substantial professional/trade publications. For non-academics, well-regarded technical writing can count.</div>
+        <div class="opt-list" data-single="c_scholar">
+          <label class="opt"><input type="radio" name="c_scholar" value="strong"><span class="opt-body"><span class="opt-label">Yes — multiple, with citations</span></span></label>
+          <label class="opt"><input type="radio" name="c_scholar" value="some"><span class="opt-body"><span class="opt-label">One or two</span></span></label>
+          <label class="opt"><input type="radio" name="c_scholar" value="none"><span class="opt-body"><span class="opt-label">None</span></span></label>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="go(2)">← Back</button>
+        <button class="btn btn-primary" id="next3" onclick="go(4)" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 4 — CRITICAL ROLE / SALARY -->
+    <div class="step" data-step="4">
+      <div class="eyebrow">Step 4 · Standing</div>
+      <h1>Role and compensation.</h1>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 8 · Critical role</div>
+        <div class="q-title">Have you held a critical or essential role at a distinguished organization?</div>
+        <div class="q-help">Leading/founding role, or key technical role, at an org with a strong reputation (well-known company, funded startup, respected lab/university). The org's distinction must be documentable.</div>
+        <div class="opt-list" data-single="c_role">
+          <label class="opt"><input type="radio" name="c_role" value="strong"><span class="opt-body"><span class="opt-label">Yes — leading/critical role at a recognized org</span></span></label>
+          <label class="opt"><input type="radio" name="c_role" value="some"><span class="opt-body"><span class="opt-label">Important role, but org's distinction is moderate</span></span></label>
+          <label class="opt"><input type="radio" name="c_role" value="none"><span class="opt-body"><span class="opt-label">Not really</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Criterion 9 · High remuneration</div>
+        <div class="q-title">Is your compensation high relative to others in your field?</div>
+        <div class="q-help">Salary, equity, or contract rates notably above the typical range for your role and region. Founder equity and total comp can count when documented.</div>
+        <div class="opt-list" data-single="c_salary">
+          <label class="opt"><input type="radio" name="c_salary" value="strong"><span class="opt-body"><span class="opt-label">Yes — well above typical for my field</span></span></label>
+          <label class="opt"><input type="radio" name="c_salary" value="some"><span class="opt-body"><span class="opt-label">Somewhat above average</span></span></label>
+          <label class="opt"><input type="radio" name="c_salary" value="none"><span class="opt-body"><span class="opt-label">Average or below / not applicable yet</span></span></label>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="go(3)">← Back</button>
+        <button class="btn btn-primary" id="next4" onclick="go(5)" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 5 — CONTEXT -->
+    <div class="step" data-step="5">
+      <div class="eyebrow">Step 5 · Context</div>
+      <h1>Two last things.</h1>
+
+      <div class="q-block">
+        <div class="q-num">Q</div>
+        <div class="q-title">Do you have a US employer or agent who could petition for you?</div>
+        <div class="q-help">O-1A needs a US petitioner — an employer, or an agent (for founders, a US agent or your own company through an agent arrangement). This affects timeline, not your score.</div>
+        <div class="opt-list" data-single="ctx_petition">
+          <label class="opt"><input type="radio" name="ctx_petition" value="yes"><span class="opt-body"><span class="opt-label">Yes — employer or agent ready</span></span></label>
+          <label class="opt"><input type="radio" name="ctx_petition" value="founder"><span class="opt-body"><span class="opt-label">I'm a founder — would petition via my own company/agent</span></span></label>
+          <label class="opt"><input type="radio" name="ctx_petition" value="no"><span class="opt-body"><span class="opt-label">Not yet</span></span></label>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-num">Q</div>
+        <div class="q-title">When do you need to be on O-1A status?</div>
+        <div class="opt-list" data-single="ctx_timeline">
+          <label class="opt"><input type="radio" name="ctx_timeline" value="urgent"><span class="opt-body"><span class="opt-label">Within 6 months</span><span class="opt-sub">Urgent — e.g. OPT/visa expiring</span></span></label>
+          <label class="opt"><input type="radio" name="ctx_timeline" value="year"><span class="opt-body"><span class="opt-label">6–18 months</span></span></label>
+          <label class="opt"><input type="radio" name="ctx_timeline" value="long"><span class="opt-body"><span class="opt-label">18+ months / just exploring</span></span></label>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="go(4)">← Back</button>
+        <button class="btn btn-primary" id="next5" onclick="calculate()" disabled>See my O-1A Score <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 6 — RESULT -->
+    <div class="step" data-step="6">
+      <div class="eyebrow">Your result</div>
+
+      <div class="score-hero">
+        <div class="score-ring-wrap">
+          <svg viewBox="0 0 240 240" width="240" height="240">
+            <circle cx="120" cy="120" r="104" fill="none" stroke="#EAE2D0" stroke-width="14"/>
+            <circle id="scoreRing" cx="120" cy="120" r="104" fill="none" stroke-width="14"
+              stroke-linecap="round" transform="rotate(-90 120 120)"
+              stroke-dasharray="653.45" stroke-dashoffset="653.45"/>
+          </svg>
+          <div class="score-num">
+            <div class="score-val" id="scoreVal">—</div>
+            <div class="score-outof">/ 100 · O-1A</div>
+          </div>
+        </div>
+        <div class="score-verdict" id="scoreVerdict"></div>
+        <p class="score-sub" id="scoreSub"></p>
+      </div>
+
+      <div class="summary-card">
+        <h3>The honest read</h3>
+        <div class="summary-line"><b>Criteria met</b><span id="sumMet"></span></div>
+        <div class="summary-line"><b>USCIS needs</b><span>At least 3 of 8 criteria evidenced strongly (or one major international award).</span></div>
+        <div class="summary-line"><b>Fastest gain</b><span id="sumFast"></span></div>
+      </div>
+
+      <div class="section-h">Criterion-by-criterion</div>
+      <div id="critList"></div>
+
+      <div class="section-h">Your plan — ranked by impact</div>
+      <div id="planList"></div>
+
+      <div class="cta-final">
+        <h3>This is the free part. <em>The plan is the product.</em></h3>
+        <p>Hyphen tracks these actions, auto-collects the evidence as you produce it, and re-scores you as the rules change — so when you cross the line, your petition is already built. Get notified when the full Navigator opens.</p>
+        <div class="email-row">
+          <input type="email" id="emailCapture" placeholder="you@email.com" />
+          <button onclick="capture()">Notify me</button>
+        </div>
+        <div class="email-note" id="emailDone" style="display:none;">✓ SAVED LOCALLY — THIS IS A PROTOTYPE</div>
+        <div class="email-note" style="margin-top:14px;">NO ACCOUNT · NOTHING SHARED · PROTOTYPE</div>
+      </div>
+
+      <div class="restart"><a onclick="restartAll()">↺ Start over with a different profile</a></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="legal-foot">
+  <div class="wrap">
+    <p>
+      Hyphen is not a law firm and does not provide legal advice. The Hyphen Score is informational
+      strength guidance derived from the published USCIS O-1A regulatory criteria (8 CFR
+      214.2(o)(3)(iii)) and is not a prediction, promise, or guarantee of any immigration outcome.
+      Immigration outcomes are determined solely by U.S. government agencies. This prototype runs
+      entirely in your browser; no data is transmitted or stored on a server. For legal advice about
+      your specific case, consult a licensed immigration attorney.
+    </p>
+  </div>
+</div>
+
+<script>
+// ---------- STATE ----------
+let current = 0;
+const totalSteps = 6;
+const answers = {};
+
+function start(){ go(1); }
+
+function go(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.querySelector('.step[data-step="'+n+'"]');
+  el.classList.add('active');
+  current = n;
+  const pb = document.getElementById('progressBar');
+  if (n >= 1 && n <= 5) {
+    pb.style.display = 'block';
+    document.getElementById('progressFill').style.width = ((n)/totalSteps*100) + '%';
+    document.getElementById('progressLabel').textContent = 'Step ' + n + ' of 5';
+  } else {
+    pb.style.display = 'none';
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---------- INPUT TRACKING ----------
+document.querySelectorAll('input[type=radio]').forEach(r => {
+  r.addEventListener('change', e => {
+    answers[e.target.name] = e.target.value;
+    const grp = e.target.closest('.opt-list');
+    if (grp) grp.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+    e.target.closest('.opt').classList.add('sel');
+    checkGates();
+  });
+});
+document.getElementById('q_field').addEventListener('change', e => {
+  answers['q_field'] = e.target.value; checkGates();
+});
+
+function checkGates(){
+  document.getElementById('next1').disabled = !(answers['q_field'] && answers['q_stage']);
+  document.getElementById('next2').disabled = !(answers['c_award'] && answers['c_prizes'] && answers['c_member'] && answers['c_press']);
+  document.getElementById('next3').disabled = !(answers['c_judge'] && answers['c_orig'] && answers['c_scholar']);
+  document.getElementById('next4').disabled = !(answers['c_role'] && answers['c_salary']);
+  document.getElementById('next5').disabled = !(answers['ctx_petition'] && answers['ctx_timeline']);
+}
+
+// ---------- SCORING ENGINE ----------
+// Maps each USCIS O-1A criterion to a 0-100 strength estimate.
+// USCIS requires >=3 criteria evidenced. We weight quality, apply a
+// field/stage modifier, and compute a calibrated composite that
+// rewards crossing the 3-criterion regulatory threshold.
+
+const CRIT = [
+  { key:'c_prizes',  name:'Nationally/internationally recognized awards',
+    map:{strong:90, some:55, none:12} },
+  { key:'c_member',  name:'Membership requiring outstanding achievement',
+    map:{strong:88, weak:30, none:10} },
+  { key:'c_press',   name:'Published material about you',
+    map:{strong:90, some:48, none:10} },
+  { key:'c_judge',   name:'Judging the work of others',
+    map:{strong:88, some:50, none:14} },
+  { key:'c_orig',    name:'Original contributions of major significance',
+    map:{strong:92, some:50, none:12} },
+  { key:'c_scholar', name:'Authorship of scholarly articles',
+    map:{strong:88, some:52, none:12} },
+  { key:'c_role',    name:'Critical role at a distinguished organization',
+    map:{strong:90, some:52, none:14} },
+  { key:'c_salary',  name:'High remuneration',
+    map:{strong:86, some:50, none:16} },
+];
+
+// "Met" threshold: a criterion counts toward the USCIS 3 if strength >= 70
+const MET_THRESHOLD = 70;
+
+function calculate(){
+  // Major award = effectively automatic strong case
+  const majorAward = answers['c_award'] === 'yes';
+
+  // Per-criterion strengths
+  const scored = CRIT.map(c => {
+    let v = c.map[answers[c.key]] ?? 12;
+    return { ...c, strength: v };
+  });
+
+  // Field/stage modifier — early-career profiles realistically score
+  // a touch lower on "impact" criteria; founders get a small bump on
+  // role/original because the regs explicitly recognize that path.
+  const stage = answers['q_stage'];
+  scored.forEach(s => {
+    if (stage === 'student') {
+      if (['c_orig','c_role','c_salary','c_scholar'].includes(s.key)) s.strength *= 0.9;
+    }
+    if (stage === 'founder') {
+      if (['c_role','c_orig'].includes(s.key)) s.strength = Math.min(100, s.strength * 1.08);
+    }
+    if (stage === 'senior') {
+      s.strength = Math.min(100, s.strength * 1.04);
+    }
+    s.strength = Math.round(s.strength);
+  });
+
+  const metCount = scored.filter(s => s.strength >= MET_THRESHOLD).length;
+
+  // Composite: average of the top 4 criteria (USCIS reads your strongest),
+  // then a threshold reward/penalty around the regulatory "3 of 8" line.
+  const sortedStrength = [...scored].map(s=>s.strength).sort((a,b)=>b-a);
+  const top4avg = (sortedStrength[0]+sortedStrength[1]+sortedStrength[2]+sortedStrength[3]) / 4;
+
+  let composite = top4avg;
+  if (metCount >= 3) composite = Math.min(100, composite + 6 + (metCount-3)*3);
+  else if (metCount === 2) composite = composite - 8;
+  else composite = composite - 18;
+
+  if (majorAward) composite = Math.max(composite, 93);
+  composite = Math.max(3, Math.min(100, Math.round(composite)));
+
+  renderResult(composite, scored, metCount, majorAward);
+  go(6);
+}
+
+function band(v){ return v < 45 ? 'low' : v < 70 ? 'mid' : 'high'; }
+
+function renderResult(score, scored, metCount, majorAward){
+  // Ring
+  const ring = document.getElementById('scoreRing');
+  const circ = 653.45;
+  const b = band(score);
+  ring.classList.add('stroke-'+b);
+  setTimeout(()=>{ ring.style.transition='stroke-dashoffset 1.3s cubic-bezier(0.16,1,0.3,1)';
+    ring.style.strokeDashoffset = circ - (circ * score/100); }, 120);
+
+  // Animated number
+  const valEl = document.getElementById('scoreVal');
+  valEl.className = 'score-val band-'+b;
+  let n=0; const step = Math.max(1, Math.round(score/40));
+  const iv = setInterval(()=>{ n+=step; if(n>=score){n=score; clearInterval(iv);} valEl.textContent=n; }, 26);
+
+  // Verdict
+  const vEl = document.getElementById('scoreVerdict');
+  const sEl = document.getElementById('scoreSub');
+  if (majorAward) {
+    vEl.textContent = 'You likely have a direct path.';
+    sEl.textContent = 'A major internationally-recognized award can satisfy O-1A on its own. This is rare — a licensed attorney should confirm the award qualifies and build the petition around it.';
+  } else if (score >= 70) {
+    vEl.textContent = 'You are in real range.';
+    sEl.textContent = 'You appear to evidence the regulatory minimum. The work now is documentation and a well-built petition — not waiting. This is the point to talk to an attorney.';
+  } else if (score >= 45) {
+    vEl.textContent = 'Closer than you were told.';
+    sEl.textContent = 'You are not "not ready" — you are a defined distance from ready. The plan below shows the specific, achievable moves that cross the line, usually in 9–18 months.';
+  } else {
+    vEl.textContent = 'A real path, with real work.';
+    sEl.textContent = "O-1A isn't realistic for your profile today — but it's not closed. The plan shows what genuinely moves the number. Some people get here in 18–36 months by building deliberately.";
+  }
+  vEl.className = 'score-verdict band-'+b;
+
+  // Summary
+  document.getElementById('sumMet').textContent =
+    majorAward ? 'Major award path (overrides the 3-of-8 test).'
+    : metCount + ' of 8 evidenced strongly' + (metCount>=3 ? ' — at or above the USCIS minimum.' : ' — below the 3 USCIS requires.');
+
+  // Criterion rows
+  const cl = document.getElementById('critList');
+  cl.innerHTML = '';
+  scored.sort((a,b)=>b.strength-a.strength).forEach(s=>{
+    const bb = band(s.strength);
+    const status = s.strength>=70 ? 'MET' : s.strength>=45 ? 'PARTIAL' : 'GAP';
+    const note = s.strength>=70 ? 'Strong enough to count toward the USCIS minimum — needs clean documentation.'
+      : s.strength>=45 ? 'Partially evidenced. Targeted work can push this over the line.'
+      : 'Currently a gap. See the plan for whether this one is worth building.';
+    cl.innerHTML += `
+      <div class="crit-row">
+        <div class="crit-top">
+          <div class="crit-name">${s.name}</div>
+          <div class="crit-status band-${bb}">${status} · ${s.strength}</div>
+        </div>
+        <div class="crit-bar-track"><div class="crit-bar ${bb}" style="width:${s.strength}%"></div></div>
+        <div class="crit-note">${note}</div>
+      </div>`;
+  });
+
+  // Plan — ranked by realistic lift per effort
+  const plan = buildPlan(scored, metCount, majorAward);
+  const pl = document.getElementById('planList');
+  pl.innerHTML = '';
+  plan.forEach((p,i)=>{
+    pl.innerHTML += `
+      <div class="plan-item">
+        <div class="plan-n">${String(i+1).padStart(2,'0')}</div>
+        <div class="plan-action">${p.action}<span>${p.detail}</span></div>
+        <div class="plan-lift">${p.lift}</div>
+      </div>`;
+  });
+  document.getElementById('sumFast').textContent = plan.length ? plan[0].action : 'Maintain and document your existing evidence.';
+}
+
+function buildPlan(scored, metCount, majorAward){
+  if (majorAward) return [{
+    action:'Have an attorney verify your award qualifies',
+    detail:'A top-tier international award can carry O-1A alone. The petition strategy is different — this needs licensed counsel now.',
+    lift:'Path open' }];
+
+  const byKey = {}; scored.forEach(s=>byKey[s.key]=s);
+  const ideas = [];
+
+  // Judging — universally the fastest to build
+  if (byKey['c_judge'].strength < 70) ideas.push({
+    key:'c_judge', effort:1,
+    action:'Take on documentable judging in your field',
+    detail:'Volunteer as a hackathon judge, journal/conference reviewer, grant or awards panelist, or speaker-selection committee. 2–3 instances, each with a confirmation letter.',
+    lift:'+'+gain(byKey['c_judge'].strength)+' on this criterion' });
+
+  // Press — buildable with deliberate effort
+  if (byKey['c_press'].strength < 70) ideas.push({
+    key:'c_press', effort:2,
+    action:'Earn substantive press about your work',
+    detail:'Pitch a contributed/founder story to trade press, get covered for a launch or result, or be the named subject of an industry piece. Two solid pieces beats ten mentions.',
+    lift:'+'+gain(byKey['c_press'].strength)+' on this criterion' });
+
+  // Scholarly — slower but strong
+  if (byKey['c_scholar'].strength < 70) ideas.push({
+    key:'c_scholar', effort:3,
+    action:'Publish scholarly or substantial technical work',
+    detail:'A peer-reviewed paper, conference proceeding, or a recognized technical publication. For non-academics, a well-cited technical body of work can qualify.',
+    lift:'+'+gain(byKey['c_scholar'].strength)+' on this criterion' });
+
+  // Original contributions
+  if (byKey['c_orig'].strength < 70) ideas.push({
+    key:'c_orig', effort:3,
+    action:'Document the impact of your original work',
+    detail:'Gather third-party proof: adoption metrics, citations, dependent projects, expert letters attesting significance. Often the evidence exists but was never assembled.',
+    lift:'+'+gain(byKey['c_orig'].strength)+' on this criterion' });
+
+  // Membership
+  if (byKey['c_member'].strength < 70) ideas.push({
+    key:'c_member', effort:2,
+    action:'Pursue a selective professional membership',
+    detail:'e.g. IEEE Senior Member, an invited fellowship, or a juried professional body where admission is judged by recognized experts.',
+    lift:'+'+gain(byKey['c_member'].strength)+' on this criterion' });
+
+  // Awards
+  if (byKey['c_prizes'].strength < 70) ideas.push({
+    key:'c_prizes', effort:2,
+    action:'Compete for recognized awards in your field',
+    detail:'Targeted, well-known competitions or industry prizes where a win is verifiable and reputable. Quality and recognizability matter more than count.',
+    lift:'+'+gain(byKey['c_prizes'].strength)+' on this criterion' });
+
+  // Critical role
+  if (byKey['c_role'].strength < 70) ideas.push({
+    key:'c_role', effort:3,
+    action:'Strengthen and document your critical role',
+    detail:'Secure a letter from leadership describing your essential role and the org\'s distinction (funding, reputation, metrics). Founders: document your role at your own funded entity.',
+    lift:'+'+gain(byKey['c_role'].strength)+' on this criterion' });
+
+  // Salary
+  if (byKey['c_salary'].strength < 70) ideas.push({
+    key:'c_salary', effort:2,
+    action:'Document compensation against field benchmarks',
+    detail:'Assemble salary surveys / BLS or industry data showing your total comp (including equity) exceeds the typical range for your role and region.',
+    lift:'+'+gain(byKey['c_salary'].strength)+' on this criterion' });
+
+  // Rank: prioritize getting to 3 met criteria fastest → lowest effort, highest current proximity
+  ideas.sort((a,b)=>{
+    const pa = a.effort - (byKey[a.key].strength/100);
+    const pb = b.effort - (byKey[b.key].strength/100);
+    return pa - pb;
+  });
+
+  // Always end with the honest "talk to a human" step
+  const tail = (metCount>=3) ? {
+    action:'Talk to a licensed immigration attorney now',
+    detail:'You appear to meet the regulatory minimum. The bottleneck is no longer eligibility — it is petition quality and documentation. This is the moment counsel adds the most value.',
+    lift:'Next real step' } : {
+    action:'Re-check your Score after each completed action',
+    detail:'Do the top items, then re-run this. When you reach 3 strongly-evidenced criteria, the next step becomes an attorney — not more building.',
+    lift:'Then: attorney' };
+
+  return ideas.slice(0,5).concat([tail]);
+}
+
+// realistic gain if a sub-70 criterion is deliberately built
+function gain(cur){
+  if (cur >= 50) return Math.round(75 - cur + 10);
+  if (cur >= 30) return Math.round(70 - cur);
+  return Math.round(55 - cur);
+}
+
+function capture(){
+  const e = document.getElementById('emailCapture').value.trim();
+  if (!e || !e.includes('@')) { document.getElementById('emailCapture').focus(); return; }
+  try { localStorage.setItem('hyphen_waitlist', e); } catch(_) {}
+  document.getElementById('emailDone').style.display = 'block';
+  document.getElementById('emailCapture').value = '';
+}
+
+function restartAll(){
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  document.getElementById('q_field').value='';
+  ['next1','next2','next3','next4','next5'].forEach(id=>document.getElementById(id).disabled=true);
+  const ring=document.getElementById('scoreRing');
+  ring.style.transition='none'; ring.style.strokeDashoffset='653.45';
+  ring.classList.remove('stroke-low','stroke-mid','stroke-high');
+  go(0);
+}
+</script>
+
+</body>
+</html>
