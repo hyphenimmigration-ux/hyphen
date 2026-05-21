@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hyphen — Know where you actually stand for a US visa.</title>
+<meta name="description" content="Honest US immigration scoring. Built on the actual USCIS criteria, not vibes. Free, in-browser, multilingual. Hyphen is not a law firm." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF6EE;--bg-card:#F2EBDC;--bg-deep:#EAE2D0;--ink:#1C1614;--ink-soft:#3A322C;--sunset:#D97843;--sunset-deep:#B85D2A;--indigo:#1E2D5C;--gold:#B89456;--rule:#C9BFA8;--rule-soft:#DDD3BD;--muted:#6B6259;--green:#3B7A52;--amber:#B8923C;--red:#B8463A;--ease:cubic-bezier(.2,.7,.2,1);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter Tight',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+body[data-lang="zh"]{font-family:'Noto Sans SC','Inter Tight',sans-serif;}
+body[data-lang="hi"]{font-family:'Noto Sans Devanagari','Inter Tight',sans-serif;}
+::selection{background:var(--indigo);color:var(--bg);}a{color:inherit;}
+.paper::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.42;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 28px;}
+.topbar{border-bottom:1px solid var(--rule);padding:18px 0;position:sticky;top:0;background:rgba(250,246,238,.92);backdrop-filter:saturate(160%) blur(10px);-webkit-backdrop-filter:saturate(160%) blur(10px);z-index:50;}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;}
+.logo{font-family:'Fraunces',serif;font-weight:500;font-size:24px;letter-spacing:-.02em;font-variation-settings:"opsz"144,"SOFT"100;display:flex;align-items:baseline;text-decoration:none;color:var(--ink);}
+.logo-dash{display:inline-block;width:13px;height:2px;background:var(--sunset);margin:0 2px 5px;transition:width .25s var(--ease);}
+.logo:hover .logo-dash{width:22px;}
+.nav{display:flex;align-items:center;gap:24px;}
+.nav-link{font-size:13.5px;color:var(--ink-soft);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:var(--ink);}
+.nav-cta{font-size:13.5px;padding:10px 18px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:500;transition:background .15s,transform .15s;display:inline-flex;align-items:center;gap:8px;}
+.nav-cta:hover{background:var(--sunset-deep);transform:translateY(-1px);}
+.lang{position:relative;}
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,color .15s;}
+.lang-btn:hover{border-color:var(--ink);color:var(--ink);}
+.lang-btn .caret{font-size:9px;opacity:.6;}
+.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg-card);border:1px solid var(--rule);min-width:180px;padding:6px;display:none;z-index:60;box-shadow:0 8px 30px rgba(28,22,20,.08);}
+.lang-menu.open{display:block;}
+.lang-opt{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:10px 12px;font-size:13.5px;color:var(--ink-soft);background:transparent;border:0;cursor:pointer;transition:background .12s,color .12s;font-family:inherit;}
+.lang-opt:hover{background:var(--bg-deep);color:var(--ink);}
+.lang-opt.active{color:var(--sunset-deep);font-weight:500;}
+.lang-opt-code{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted);}
+@media(max-width:760px){.nav-link{display:none;}}
+.disclaimer-strip{background:var(--bg-deep);border-bottom:1px solid var(--rule);padding:11px 0;}
+.disclaimer-strip p{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink-soft);text-align:center;line-height:1.5;}
+.disclaimer-strip strong{color:var(--ink);}
+.hero{padding:110px 0 100px;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;}
+.hero::after{content:"";position:absolute;top:0;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(217,120,67,.07) 0%,transparent 65%);pointer-events:none;}
+.hero .wrap{display:grid;grid-template-columns:1.18fr 1fr;gap:90px;align-items:center;position:relative;z-index:2;}
+@media(max-width:920px){.hero .wrap{grid-template-columns:1fr;gap:60px;}.hero{padding:70px 0 80px;}}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--sunset-deep);margin-bottom:26px;display:inline-flex;align-items:center;gap:12px;}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--sunset);}
+h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(42px,5.6vw,72px);line-height:.98;letter-spacing:-.038em;font-variation-settings:"opsz"144,"SOFT"50,"WONK"1;margin-bottom:30px;}
+h1 em{font-style:italic;color:var(--sunset);font-variation-settings:"opsz"144,"SOFT"80,"WONK"1;}
+body[data-lang="zh"] h1,body[data-lang="hi"] h1{font-weight:600;font-family:inherit;letter-spacing:-.01em;}
+.hero-lead{font-size:19px;line-height:1.6;color:var(--ink-soft);max-width:54ch;margin-bottom:38px;}
+.hero-lead strong{color:var(--ink);font-weight:500;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+.btn{font-family:inherit;font-size:15px;font-weight:500;padding:17px 28px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .15s,background .15s,border-color .15s;}
+.btn-primary{background:var(--ink);color:var(--bg);}
+.btn-primary:hover{background:var(--sunset-deep);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--ink);}
+.btn .arrow{transition:transform .15s;}
+.btn-primary:hover .arrow,.btn-ghost:hover .arrow{transform:translateX(3px);}
+.hero-trust{display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+.hero-art{position:relative;}
+.score-mock{background:linear-gradient(180deg,var(--bg-card) 0%,#EDE3D0 100%);border:1px solid var(--rule);padding:34px 32px;position:relative;animation:floatIn .9s var(--ease) both;}
+.score-mock::before{content:"";position:absolute;top:-7px;left:-7px;right:7px;bottom:7px;border:1px solid var(--sunset);pointer-events:none;z-index:-1;}
+@keyframes floatIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.sm-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.sm-tag{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--sunset-deep);}
+.sm-live{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.sm-live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.sm-ring{display:flex;align-items:center;gap:24px;margin-bottom:24px;}
+.sm-num{font-family:'Fraunces',serif;font-size:62px;line-height:1;font-variation-settings:"opsz"144;letter-spacing:-.03em;color:var(--amber);}
+.sm-num-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;margin-top:8px;}
+.sm-verdict{font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--ink);margin-bottom:22px;font-variation-settings:"opsz"36,"SOFT"80;border-left:2px solid var(--sunset);padding-left:14px;}
+.sm-rows{display:flex;flex-direction:column;gap:11px;}
+.sm-row{display:flex;justify-content:space-between;font-size:12.5px;align-items:center;}
+.sm-row-name{color:var(--ink-soft);min-width:120px;}
+.sm-row-bar{flex:1;height:5px;background:var(--bg-deep);margin:0 14px;border-radius:3px;overflow:hidden;}
+.sm-row-fill{height:100%;border-radius:3px;animation:gro 1.1s var(--ease) .3s both;transform-origin:left;}
+@keyframes gro{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+.sm-row-fill.high{background:var(--green);}.sm-row-fill.mid{background:var(--amber);}.sm-row-fill.low{background:var(--red);}
+.sm-row-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:24px;text-align:right;}
+.truth{background:var(--ink);color:var(--bg);padding:110px 0;position:relative;overflow:hidden;}
+.truth::before{content:"";position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(217,120,67,.10) 0%,transparent 65%);pointer-events:none;}
+.truth-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start;position:relative;z-index:2;}
+@media(max-width:820px){.truth-inner{grid-template-columns:1fr;gap:36px;}.truth{padding:80px 0;}}
+.truth-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--sunset);margin-bottom:22px;display:inline-flex;align-items:center;gap:12px;}
+.truth-eyebrow::before{content:"";width:30px;height:1px;background:var(--sunset);}
+.truth h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,3.9vw,48px);line-height:1.05;letter-spacing:-.028em;font-variation-settings:"opsz"144,"SOFT"60;}
+.truth h2 em{font-style:italic;color:var(--sunset);}
+.truth-body p{font-size:17px;line-height:1.7;color:rgba(250,246,238,.86);margin-bottom:22px;}
+.truth-body p:last-child{margin-bottom:0;}
+.truth-body strong{color:var(--bg);font-weight:500;}
+.pathways{padding:110px 0;border-bottom:1px solid var(--rule);position:relative;}
+.section-head{margin-bottom:58px;max-width:64ch;}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.18em;color:var(--sunset-deep);margin-bottom:22px;display:inline-flex;align-items:center;gap:12px;}
+.section-eyebrow::before{content:"";width:30px;height:1px;background:var(--sunset);}
+h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,3.9vw,48px);line-height:1.05;letter-spacing:-.028em;font-variation-settings:"opsz"144,"SOFT"60;margin-bottom:20px;}
+h2 em{font-style:italic;color:var(--sunset);}
+.section-lead{font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:62ch;}
+body[data-lang="zh"] h2,body[data-lang="hi"] h2{font-weight:600;font-family:inherit;}
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media(max-width:760px){.pw-grid{grid-template-columns:1fr;}}
+.pw{background:var(--bg-card);border:1px solid var(--rule);padding:36px 34px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.pw::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sunset),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);}
+.pw:hover{border-color:var(--sunset);transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,22,20,.06);}
+.pw:hover::before{transform:scaleX(1);}
+.pw-badge{position:absolute;top:20px;right:22px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.14em;display:flex;align-items:center;gap:6px;}
+.pw-badge.live{color:var(--green);}
+.pw-badge.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);}
+.pw-badge.soon{color:var(--muted);}
+.pw-code{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;color:var(--sunset-deep);margin-bottom:14px;text-transform:uppercase;}
+.pw-name{font-family:'Fraunces',serif;font-size:30px;line-height:1.08;letter-spacing:-.022em;margin-bottom:12px;font-variation-settings:"opsz"144,"SOFT"60;}
+.pw-desc{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:22px;flex:1;}
+.pw-meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted);margin-bottom:18px;text-transform:uppercase;}
+.pw-cta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--ink);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;}
+.pw-cta .arrow{transition:transform .2s var(--ease);}
+.pw:hover .pw-cta .arrow{transform:translateX(5px);}
+.pw.coming{opacity:.66;cursor:default;}
+.pw.coming:hover{transform:none;border-color:var(--rule);box-shadow:none;}
+.pw.coming:hover::before{transform:scaleX(0);}
+.principles{padding:110px 0;background:var(--bg-deep);border-bottom:1px solid var(--rule);}
+.principle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:48px;}
+@media(max-width:820px){.principle-grid{grid-template-columns:1fr;gap:36px;}}
+.pr-num{font-family:'Fraunces',serif;font-style:italic;font-size:44px;color:var(--sunset);line-height:1;margin-bottom:18px;font-variation-settings:"opsz"144,"SOFT"100,"WONK"1;}
+.pr h3{font-family:'Fraunces',serif;font-size:23px;font-variation-settings:"opsz"36,"SOFT"60;letter-spacing:-.012em;margin-bottom:12px;line-height:1.2;}
+.pr p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);}
+body[data-lang="zh"] .pr h3,body[data-lang="hi"] .pr h3{font-weight:600;font-family:inherit;}
+.trust-sec{padding:100px 0;border-bottom:1px solid var(--rule);}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+@media(max-width:820px){.trust-grid{grid-template-columns:1fr;}}
+.tr{padding:28px 0;border-top:1px solid var(--rule-soft);}
+.tr-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--sunset-deep);margin-bottom:12px;}
+.tr h4{font-family:'Fraunces',serif;font-size:21px;margin-bottom:12px;letter-spacing:-.012em;font-variation-settings:"opsz"36,"SOFT"60;}
+.tr p{font-size:14.5px;color:var(--ink-soft);line-height:1.65;}
+body[data-lang="zh"] .tr h4,body[data-lang="hi"] .tr h4{font-weight:600;font-family:inherit;}
+.founder{padding:110px 0;}
+.founder .wrap-narrow{max-width:720px;}
+.founder-quote{font-family:'Fraunces',serif;font-size:clamp(22px,2.7vw,30px);line-height:1.4;font-style:italic;letter-spacing:-.012em;color:var(--ink);font-variation-settings:"opsz"144,"SOFT"80;margin-bottom:34px;}
+.founder-quote::before{content:"\201C";font-size:1.6em;color:var(--sunset);line-height:0;margin-right:6px;font-style:normal;}
+.founder-sign{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.08em;}
+.founder-sign b{color:var(--ink);font-weight:500;}
+body[data-lang="zh"] .founder-quote,body[data-lang="hi"] .founder-quote{font-style:normal;font-weight:500;font-family:inherit;}
+.final-cta{background:var(--ink);color:var(--bg);padding:110px 0;text-align:center;position:relative;overflow:hidden;}
+.final-cta::before{content:"";position:absolute;bottom:-200px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(217,120,67,.12) 0%,transparent 65%);pointer-events:none;}
+.final-cta .wrap-narrow{position:relative;z-index:2;}
+.final-cta h2{color:var(--bg);max-width:24ch;margin:0 auto 24px;}
+.final-cta h2 em{color:var(--sunset);}
+.final-cta p{font-size:17px;color:rgba(250,246,238,.78);max-width:50ch;margin:0 auto 38px;line-height:1.6;}
+.final-cta .btn-primary{background:var(--sunset);color:var(--ink);}
+.final-cta .btn-primary:hover{background:var(--bg);}
+footer{padding:60px 0 50px;background:var(--bg);}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px;margin-bottom:48px;padding-bottom:42px;border-bottom:1px solid var(--rule);}
+@media(max-width:760px){.foot-top{grid-template-columns:1fr;gap:36px;}}
+.foot-tag{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:14px;}
+.foot-col a{display:block;font-size:13.5px;color:var(--ink-soft);text-decoration:none;margin-bottom:9px;transition:color .12s;}
+.foot-col a:hover{color:var(--ink);}
+.foot-about{font-size:13.5px;color:var(--ink-soft);line-height:1.65;max-width:42ch;}
+.foot-disc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);line-height:1.75;letter-spacing:.02em;}
+</style>
+</head>
+<body class="paper" data-lang="en">
+
+<div class="topbar"><div class="wrap">
+  <a class="logo" href="./">Hyp<span class="logo-dash"></span>en</a>
+  <nav class="nav">
+    <a class="nav-link" href="#pathways" data-i18n="nav.pathways">Pathways</a>
+    <a class="nav-link" href="#principles" data-i18n="nav.how">How it works</a>
+    <a class="nav-link" href="#trust" data-i18n="nav.trust">Trust &amp; legal</a>
+    <div class="lang">
+      <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false"><span id="langLabel">EN</span> <span class="caret">▾</span></button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button class="lang-opt active" data-lang="en" role="menuitem">English<span class="lang-opt-code">EN</span></button>
+        <button class="lang-opt" data-lang="es" role="menuitem">Español<span class="lang-opt-code">ES</span></button>
+        <button class="lang-opt" data-lang="zh" role="menuitem">中文<span class="lang-opt-code">ZH</span></button>
+        <button class="lang-opt" data-lang="hi" role="menuitem">हिन्दी<span class="lang-opt-code">HI</span></button>
+        <button class="lang-opt" data-lang="pt" role="menuitem">Português<span class="lang-opt-code">PT</span></button>
+      </div>
+    </div>
+    <a class="nav-cta" href="#pathways"><span data-i18n="nav.cta">Get your Score</span> <span class="arrow">→</span></a>
+  </nav>
+</div></div>
+
+<div class="disclaimer-strip"><div class="wrap"><p data-i18n="disc.strip"><strong>Hyphen is not a law firm.</strong> Informational strength guidance only — not legal advice, not a prediction, not a guarantee. Only USCIS decides outcomes.</p></div></div>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="eyebrow" data-i18n="hero.eyebrow">Honest immigration scoring</div>
+    <h1 data-i18n="hero.h1">Know where you <em>actually</em> stand for a US visa.</h1>
+    <p class="hero-lead" data-i18n="hero.lead">Most immigration tools flatter you to make a sale, or reject you to protect their approval rate. Hyphen does <strong>neither</strong>. We score your profile honestly against the actual USCIS criteria, tell you exactly where the gaps are, and give you the specific plan to close them. Free. No account. Nothing shared.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#pathways"><span data-i18n="hero.cta1">Get your free Score</span> <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#principles"><span data-i18n="hero.cta2">How it works</span></a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-dot"></span><span data-i18n="hero.t1">Not a law firm</span></div>
+      <div class="trust-item"><span class="trust-dot"></span><span data-i18n="hero.t2">Runs in your browser</span></div>
+      <div class="trust-item"><span class="trust-dot"></span><span data-i18n="hero.t3">Nothing shared</span></div>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="score-mock" aria-hidden="true">
+      <div class="sm-head">
+        <div class="sm-tag" data-i18n="mock.tag">Your O-1A Score · example</div>
+        <div class="sm-live" data-i18n="mock.live">Live engine</div>
+      </div>
+      <div class="sm-ring">
+        <svg viewBox="0 0 110 110" width="92" height="92"><circle cx="55" cy="55" r="46" fill="none" stroke="#EAE2D0" stroke-width="9"/><circle cx="55" cy="55" r="46" fill="none" stroke="#B8923C" stroke-width="9" stroke-linecap="round" transform="rotate(-90 55 55)" stroke-dasharray="289" stroke-dashoffset="113"/></svg>
+        <div><div class="sm-num">62</div><div class="sm-num-sub">/ 100 · O-1A</div></div>
+      </div>
+      <div class="sm-verdict" data-i18n="mock.verdict">"Closer than you were told."</div>
+      <div class="sm-rows">
+        <div class="sm-row"><span class="sm-row-name" data-i18n="mock.r1">Critical role</span><span class="sm-row-bar"><span class="sm-row-fill high" style="width:88%"></span></span><span class="sm-row-val">88</span></div>
+        <div class="sm-row"><span class="sm-row-name" data-i18n="mock.r2">Scholarly articles</span><span class="sm-row-bar"><span class="sm-row-fill high" style="width:82%"></span></span><span class="sm-row-val">82</span></div>
+        <div class="sm-row"><span class="sm-row-name" data-i18n="mock.r3">Judging</span><span class="sm-row-bar"><span class="sm-row-fill mid" style="width:52%"></span></span><span class="sm-row-val">52</span></div>
+        <div class="sm-row"><span class="sm-row-name" data-i18n="mock.r4">Press</span><span class="sm-row-bar"><span class="sm-row-fill mid" style="width:48%"></span></span><span class="sm-row-val">48</span></div>
+        <div class="sm-row"><span class="sm-row-name" data-i18n="mock.r5">Membership</span><span class="sm-row-bar"><span class="sm-row-fill low" style="width:30%"></span></span><span class="sm-row-val">30</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="truth"><div class="wrap"><div class="truth-inner">
+  <div>
+    <div class="truth-eyebrow" data-i18n="truth.eyebrow">The truth</div>
+    <h2 data-i18n="truth.h2">You are not "not ready." You are a <em>defined distance</em> from ready.</h2>
+  </div>
+  <div class="truth-body">
+    <p data-i18n="truth.p1">"Talk to us when you're ready" is what immigration lawyers tell people they don't want to take on — because no one has ever defined what <em>ready</em> means.</p>
+    <p data-i18n="truth.p2">USCIS has. The criteria are public. For most visas, eligibility is judged against a specific, written set of standards in the federal regulations. Hyphen reads your profile against those standards and tells you, with a real score on each one, where you genuinely stand.</p>
+    <p data-i18n="truth.p3">If you're a 78, we say so. If you're a 34, <strong>we say that too.</strong> And in both cases, you get a concrete plan — what to build, in what order, to move the number. That's it. That's the product.</p>
+  </div>
+</div></div></section>
+
+<section class="pathways" id="pathways"><div class="wrap">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="pw.eyebrow">Pathways</div>
+    <h2 data-i18n="pw.h2">Pick your visa — <em>get your real Score</em>.</h2>
+    <p class="section-lead" data-i18n="pw.lead">Each pathway runs in your browser, takes 7–10 minutes, and gives you a calibrated 0–100 score against the actual USCIS criteria — plus your specific gap plan. We're starting with the two most-asked-about pathways. More on the way.</p>
+  </div>
+  <div class="pw-grid">
+    <a class="pw" href="./o1a.html">
+      <div class="pw-badge live" data-i18n="pw.live">Live</div>
+      <div class="pw-code">O-1A · <span data-i18n="pw.workvisa">Work Visa</span></div>
+      <div class="pw-name" data-i18n="pw.o1a.name">Extraordinary Ability</div>
+      <div class="pw-desc" data-i18n="pw.o1a.desc">For sciences, business, education &amp; athletics. Scored against the 8 USCIS regulatory criteria (8 CFR 214.2(o)). Founder-friendly. Often the right path when H-1B isn't.</div>
+      <div class="pw-meta" data-i18n="pw.englishonly">Quiz questions in English · interface translated</div>
+      <span class="pw-cta"><span data-i18n="pw.o1a.cta">Start O-1A Score</span> <span class="arrow">→</span></span>
+    </a>
+    <a class="pw" href="./niw.html">
+      <div class="pw-badge live" data-i18n="pw.live">Live</div>
+      <div class="pw-code">EB-2 NIW · <span data-i18n="pw.gc">Green Card</span></div>
+      <div class="pw-name" data-i18n="pw.niw.name">National Interest Waiver</div>
+      <div class="pw-desc" data-i18n="pw.niw.desc">Self-petition green card — no employer, no labor certification. Scored honestly against the three-prong <em>Matter of Dhanasar</em> test. The score is gated by your weakest prong, exactly as USCIS adjudicates.</div>
+      <div class="pw-meta" data-i18n="pw.englishonly">Quiz questions in English · interface translated</div>
+      <span class="pw-cta"><span data-i18n="pw.niw.cta">Start NIW Score</span> <span class="arrow">→</span></span>
+    </a>
+    <div class="pw coming">
+      <div class="pw-badge soon" data-i18n="pw.soon">Coming soon</div>
+      <div class="pw-code">EB-1A · <span data-i18n="pw.gc">Green Card</span></div>
+      <div class="pw-name" data-i18n="pw.eb1a.name">Extraordinary Ability (PR)</div>
+      <div class="pw-desc" data-i18n="pw.eb1a.desc">The green-card sibling of O-1A. Shares much of the same evidence, with a higher bar: "sustained national or international acclaim." Best path for those already strong on O-1A.</div>
+      <span class="pw-cta" style="opacity:.5;" data-i18n="pw.notify">Notify me when live</span>
+    </div>
+    <div class="pw coming">
+      <div class="pw-badge soon" data-i18n="pw.soon">Coming soon</div>
+      <div class="pw-code">H-1B · <span data-i18n="pw.workvisa">Work Visa</span></div>
+      <div class="pw-name" data-i18n="pw.h1b.name">Specialty Occupation</div>
+      <div class="pw-desc" data-i18n="pw.h1b.desc">The most-filed work visa. Honest scoring on lottery odds (~35% for FY26), wage tier under the new wage-weighted selection, employer fit, and whether O-1A is a stronger path for your profile.</div>
+      <span class="pw-cta" style="opacity:.5;" data-i18n="pw.notify">Notify me when live</span>
+    </div>
+  </div>
+</div></section>
+
+<section class="principles" id="principles"><div class="wrap">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="pr.eyebrow">How it works</div>
+    <h2 data-i18n="pr.h2">Three principles. <em>That's the entire product.</em></h2>
+  </div>
+  <div class="principle-grid">
+    <div class="pr"><div class="pr-num">01</div><h3 data-i18n="pr.1.h">Real criteria, not vibes</h3><p data-i18n="pr.1.p">Every score is built on the published USCIS regulatory criteria for that visa. O-1A reads against the eight criteria in 8 CFR 214.2(o)(3)(iii). NIW reads against the three-prong <em>Matter of Dhanasar</em> framework. Your lawyer can inspect the model.</p></div>
+    <div class="pr"><div class="pr-num">02</div><h3 data-i18n="pr.2.h">Calibrated to be honest</h3><p data-i18n="pr.2.p">The math is tuned so 90+ is rare and earned — reserved for genuinely exceptional profiles. The bare regulatory minimum sits in the high-60s/low-70s ("in real range — now talk to an attorney"). Nothing inflated, nothing crushing.</p></div>
+    <div class="pr"><div class="pr-num">03</div><h3 data-i18n="pr.3.h">The plan is the product</h3><p data-i18n="pr.3.p">Every score ends with a ranked plan: the specific, achievable moves that close your gaps — fastest first. When you've genuinely crossed the line, the plan tells you to stop and talk to a real attorney, not stay in our product.</p></div>
+  </div>
+</div></section>
+
+<section class="trust-sec" id="trust"><div class="wrap">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="tr.eyebrow">Trust &amp; legal</div>
+    <h2 data-i18n="tr.h2">What Hyphen is — and <em>is not</em>.</h2>
+    <p class="section-lead" data-i18n="tr.lead">Immigration is sensitive. We hold a clear line on what this tool does, what it doesn't, and where you should go for actual legal help.</p>
+  </div>
+  <div class="trust-grid">
+    <div class="tr"><div class="tr-tag" data-i18n="tr.1.tag">What we are</div><h4 data-i18n="tr.1.h">Honest information</h4><p data-i18n="tr.1.p">A free, in-browser tool that reads your profile against published USCIS criteria and returns a calibrated strength score plus a specific plan. Built so you can <em>see</em> where you stand before deciding whether to invest in a petition.</p></div>
+    <div class="tr"><div class="tr-tag" data-i18n="tr.2.tag">What we are not</div><h4 data-i18n="tr.2.h">A law firm, or your lawyer</h4><p data-i18n="tr.2.p">Hyphen does not provide legal advice, does not represent anyone before USCIS, and does not file petitions. The Score is informational strength guidance, not a prediction of outcome. For your specific case, you need a licensed immigration attorney.</p></div>
+    <div class="tr"><div class="tr-tag" data-i18n="tr.3.tag">What we don't store</div><h4 data-i18n="tr.3.h">Your data stays with you</h4><p data-i18n="tr.3.p">Today, the Score runs entirely in your browser. Your answers are not transmitted or stored on a server. When we add accounts (so you can save your profile across pathways), we will tell you exactly what we store, why, and how it's secured.</p></div>
+  </div>
+</div></section>
+
+<section class="founder"><div class="wrap-narrow">
+  <div class="section-eyebrow" data-i18n="fo.eyebrow">From the founder</div>
+  <p class="founder-quote" data-i18n="fo.quote">I'm an international student in the US. I have spent more hours than I care to admit reading 8 CFR 214 and trying to figure out if I have a real shot at the O-1A, or if I should give up and accept the H-1B lottery. The industry told me both "you're not ready" and "give us $8,000 and we'll see." Neither was honest. Hyphen is the tool I wish had existed — built on the actual law, calibrated to tell the truth, and free.</p>
+  <div class="founder-sign">— <b data-i18n="fo.sign1">Founder, Hyphen</b> · <span data-i18n="fo.sign2">An international student building this for people in the same boat</span></div>
+</div></section>
+
+<section class="final-cta"><div class="wrap-narrow">
+  <h2 data-i18n="cta.h2">Stop guessing. <em>Get your real Score.</em></h2>
+  <p data-i18n="cta.p">It's free, it runs in your browser, and nothing is shared. In 8 minutes you'll know exactly where you stand, what's missing, and what to do next.</p>
+  <a class="btn btn-primary" href="#pathways"><span data-i18n="cta.btn">Pick your pathway</span> <span class="arrow">→</span></a>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-top">
+    <div class="foot-col">
+      <div class="logo" style="margin-bottom:16px;">Hyp<span class="logo-dash"></span>en</div>
+      <p class="foot-about" data-i18n="ft.about">Honest immigration scoring. Built on the actual USCIS regulatory criteria. Free, in-browser, nothing shared. We are not a law firm.</p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-tag" data-i18n="ft.pathways">Pathways</div>
+      <a href="./o1a.html">O-1A</a><a href="./niw.html">EB-2 NIW</a><a href="#pathways">EB-1A <span data-i18n="ft.soon">(soon)</span></a><a href="#pathways">H-1B <span data-i18n="ft.soon">(soon)</span></a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-tag" data-i18n="ft.about_tag">About</div>
+      <a href="#principles" data-i18n="nav.how">How it works</a><a href="#trust" data-i18n="nav.trust">Trust &amp; legal</a><a href="#pathways" data-i18n="ft.start">Get your Score</a>
+    </div>
+  </div>
+  <p class="foot-disc" data-i18n="ft.disc">Hyphen is not a law firm and does not provide legal advice. Hyphen Scores are informational strength guidance derived from the published USCIS regulatory criteria for each visa pathway (e.g. 8 CFR 214.2(o)(3)(iii) for O-1A; <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016) for EB-2 NIW) and are not predictions, promises, or guarantees of any immigration outcome. Immigration outcomes are determined solely by U.S. government agencies. This product currently runs entirely in your browser; no data is transmitted or stored on a server. For legal advice about your specific case, consult a licensed immigration attorney.<br><br>&copy; 2026 Hyphen.</p>
+</div></footer>
+
+<script>
+const T={
+en:{"nav.pathways":"Pathways","nav.how":"How it works","nav.trust":"Trust &amp; legal","nav.cta":"Get your Score","disc.strip":"<strong>Hyphen is not a law firm.</strong> Informational strength guidance only — not legal advice, not a prediction, not a guarantee. Only USCIS decides outcomes.","hero.eyebrow":"Honest immigration scoring","hero.h1":"Know where you <em>actually</em> stand for a US visa.","hero.lead":"Most immigration tools flatter you to make a sale, or reject you to protect their approval rate. Hyphen does <strong>neither</strong>. We score your profile honestly against the actual USCIS criteria, tell you exactly where the gaps are, and give you the specific plan to close them. Free. No account. Nothing shared.","hero.cta1":"Get your free Score","hero.cta2":"How it works","hero.t1":"Not a law firm","hero.t2":"Runs in your browser","hero.t3":"Nothing shared","mock.tag":"Your O-1A Score · example","mock.live":"Live engine","mock.verdict":"\"Closer than you were told.\"","mock.r1":"Critical role","mock.r2":"Scholarly articles","mock.r3":"Judging","mock.r4":"Press","mock.r5":"Membership","truth.eyebrow":"The truth","truth.h2":"You are not \"not ready.\" You are a <em>defined distance</em> from ready.","truth.p1":"\"Talk to us when you're ready\" is what immigration lawyers tell people they don't want to take on — because no one has ever defined what <em>ready</em> means.","truth.p2":"USCIS has. The criteria are public. For most visas, eligibility is judged against a specific, written set of standards in the federal regulations. Hyphen reads your profile against those standards and tells you, with a real score on each one, where you genuinely stand.","truth.p3":"If you're a 78, we say so. If you're a 34, <strong>we say that too.</strong> And in both cases, you get a concrete plan — what to build, in what order, to move the number. That's it. That's the product.","pw.eyebrow":"Pathways","pw.h2":"Pick your visa — <em>get your real Score</em>.","pw.lead":"Each pathway runs in your browser, takes 7–10 minutes, and gives you a calibrated 0–100 score against the actual USCIS criteria — plus your specific gap plan. We're starting with the two most-asked-about pathways. More on the way.","pw.live":"Live","pw.soon":"Coming soon","pw.workvisa":"Work Visa","pw.gc":"Green Card","pw.englishonly":"Quiz questions in English · interface translated","pw.o1a.name":"Extraordinary Ability","pw.o1a.desc":"For sciences, business, education &amp; athletics. Scored against the 8 USCIS regulatory criteria (8 CFR 214.2(o)). Founder-friendly. Often the right path when H-1B isn't.","pw.o1a.cta":"Start O-1A Score","pw.niw.name":"National Interest Waiver","pw.niw.desc":"Self-petition green card — no employer, no labor certification. Scored honestly against the three-prong <em>Matter of Dhanasar</em> test. The score is gated by your weakest prong, exactly as USCIS adjudicates.","pw.niw.cta":"Start NIW Score","pw.eb1a.name":"Extraordinary Ability (PR)","pw.eb1a.desc":"The green-card sibling of O-1A. Shares much of the same evidence, with a higher bar: \"sustained national or international acclaim.\" Best path for those already strong on O-1A.","pw.h1b.name":"Specialty Occupation","pw.h1b.desc":"The most-filed work visa. Honest scoring on lottery odds (~35% for FY26), wage tier under the new wage-weighted selection, employer fit, and whether O-1A is a stronger path for your profile.","pw.notify":"Notify me when live","pr.eyebrow":"How it works","pr.h2":"Three principles. <em>That's the entire product.</em>","pr.1.h":"Real criteria, not vibes","pr.1.p":"Every score is built on the published USCIS regulatory criteria for that visa. O-1A reads against the eight criteria in 8 CFR 214.2(o)(3)(iii). NIW reads against the three-prong <em>Matter of Dhanasar</em> framework. Your lawyer can inspect the model.","pr.2.h":"Calibrated to be honest","pr.2.p":"The math is tuned so 90+ is rare and earned — reserved for genuinely exceptional profiles. The bare regulatory minimum sits in the high-60s/low-70s (\"in real range — now talk to an attorney\"). Nothing inflated, nothing crushing.","pr.3.h":"The plan is the product","pr.3.p":"Every score ends with a ranked plan: the specific, achievable moves that close your gaps — fastest first. When you've genuinely crossed the line, the plan tells you to stop and talk to a real attorney, not stay in our product.","tr.eyebrow":"Trust &amp; legal","tr.h2":"What Hyphen is — and <em>is not</em>.","tr.lead":"Immigration is sensitive. We hold a clear line on what this tool does, what it doesn't, and where you should go for actual legal help.","tr.1.tag":"What we are","tr.1.h":"Honest information","tr.1.p":"A free, in-browser tool that reads your profile against published USCIS criteria and returns a calibrated strength score plus a specific plan. Built so you can <em>see</em> where you stand before deciding whether to invest in a petition.","tr.2.tag":"What we are not","tr.2.h":"A law firm, or your lawyer","tr.2.p":"Hyphen does not provide legal advice, does not represent anyone before USCIS, and does not file petitions. The Score is informational strength guidance, not a prediction of outcome. For your specific case, you need a licensed immigration attorney.","tr.3.tag":"What we don't store","tr.3.h":"Your data stays with you","tr.3.p":"Today, the Score runs entirely in your browser. Your answers are not transmitted or stored on a server. When we add accounts (so you can save your profile across pathways), we will tell you exactly what we store, why, and how it's secured.","fo.eyebrow":"From the founder","fo.quote":"I'm an international student in the US. I have spent more hours than I care to admit reading 8 CFR 214 and trying to figure out if I have a real shot at the O-1A, or if I should give up and accept the H-1B lottery. The industry told me both \"you're not ready\" and \"give us $8,000 and we'll see.\" Neither was honest. Hyphen is the tool I wish had existed — built on the actual law, calibrated to tell the truth, and free.","fo.sign1":"Founder, Hyphen","fo.sign2":"An international student building this for people in the same boat","cta.h2":"Stop guessing. <em>Get your real Score.</em>","cta.p":"It's free, it runs in your browser, and nothing is shared. In 8 minutes you'll know exactly where you stand, what's missing, and what to do next.","cta.btn":"Pick your pathway","ft.about":"Honest immigration scoring. Built on the actual USCIS regulatory criteria. Free, in-browser, nothing shared. We are not a law firm.","ft.pathways":"Pathways","ft.about_tag":"About","ft.start":"Get your Score","ft.soon":"(soon)","ft.disc":"Hyphen is not a law firm and does not provide legal advice. Hyphen Scores are informational strength guidance derived from the published USCIS regulatory criteria for each visa pathway (e.g. 8 CFR 214.2(o)(3)(iii) for O-1A; <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016) for EB-2 NIW) and are not predictions, promises, or guarantees of any immigration outcome. Immigration outcomes are determined solely by U.S. government agencies. This product currently runs entirely in your browser; no data is transmitted or stored on a server. For legal advice about your specific case, consult a licensed immigration attorney.<br><br>&copy; 2026 Hyphen."},
+es:{"nav.pathways":"Vías","nav.how":"Cómo funciona","nav.trust":"Confianza y legal","nav.cta":"Obtén tu Puntuación","disc.strip":"<strong>Hyphen no es un bufete de abogados.</strong> Solo orientación informativa de fortaleza — no es asesoría legal, ni una predicción, ni una garantía. Solo USCIS decide los resultados.","hero.eyebrow":"Puntuación honesta de inmigración","hero.h1":"Sabe dónde estás <em>realmente</em> para una visa estadounidense.","hero.lead":"La mayoría de las herramientas de inmigración te halagan para venderte algo, o te rechazan para proteger su tasa de aprobación. Hyphen no hace <strong>ninguna de las dos</strong>. Puntuamos tu perfil honestamente contra los criterios reales de USCIS, te decimos exactamente dónde están las brechas, y te damos el plan específico para cerrarlas. Gratis. Sin cuenta. Nada compartido.","hero.cta1":"Obtén tu Puntuación gratis","hero.cta2":"Cómo funciona","hero.t1":"No es un bufete","hero.t2":"Funciona en tu navegador","hero.t3":"Nada compartido","mock.tag":"Tu Puntuación O-1A · ejemplo","mock.live":"Motor en vivo","mock.verdict":"\"Más cerca de lo que te dijeron.\"","mock.r1":"Rol crítico","mock.r2":"Artículos académicos","mock.r3":"Como juez","mock.r4":"Prensa","mock.r5":"Membresía","truth.eyebrow":"La verdad","truth.h2":"No estás \"no listo\". Estás a una <em>distancia definida</em> de estar listo.","truth.p1":"\"Habla con nosotros cuando estés listo\" es lo que los abogados de inmigración dicen a quienes no quieren tomar — porque nadie ha definido nunca qué significa <em>listo</em>.","truth.p2":"USCIS sí lo ha hecho. Los criterios son públicos. Para la mayoría de las visas, la elegibilidad se juzga contra un conjunto específico y escrito de estándares en las regulaciones federales. Hyphen lee tu perfil contra esos estándares y te dice, con una puntuación real en cada uno, dónde estás verdaderamente.","truth.p3":"Si eres un 78, lo decimos. Si eres un 34, <strong>también lo decimos.</strong> Y en ambos casos, obtienes un plan concreto — qué construir, en qué orden, para mover el número. Eso es todo. Ese es el producto.","pw.eyebrow":"Vías","pw.h2":"Elige tu visa — <em>obtén tu Puntuación real</em>.","pw.lead":"Cada vía funciona en tu navegador, toma 7–10 minutos, y te da una puntuación calibrada de 0–100 contra los criterios reales de USCIS — más tu plan específico de brechas. Empezamos con las dos vías más consultadas. Habrá más en camino.","pw.live":"En vivo","pw.soon":"Próximamente","pw.workvisa":"Visa de Trabajo","pw.gc":"Residencia","pw.englishonly":"Preguntas del cuestionario en inglés · interfaz traducida","pw.o1a.name":"Habilidad Extraordinaria","pw.o1a.desc":"Para ciencias, negocios, educación y atletismo. Puntuada contra los 8 criterios regulatorios de USCIS (8 CFR 214.2(o)). Apta para fundadores. A menudo el camino correcto cuando la H-1B no lo es.","pw.o1a.cta":"Empezar Puntuación O-1A","pw.niw.name":"Exención por Interés Nacional","pw.niw.desc":"Residencia por auto-petición — sin empleador, sin certificación laboral. Puntuada honestamente contra la prueba de tres pilares de <em>Matter of Dhanasar</em>. La puntuación está limitada por tu pilar más débil, exactamente como adjudica USCIS.","pw.niw.cta":"Empezar Puntuación NIW","pw.eb1a.name":"Habilidad Extraordinaria (Residencia)","pw.eb1a.desc":"El equivalente de residencia del O-1A. Comparte gran parte de la misma evidencia, con un estándar más alto: \"aclamación nacional o internacional sostenida\". Mejor camino para quienes ya son fuertes en O-1A.","pw.h1b.name":"Ocupación Especializada","pw.h1b.desc":"La visa de trabajo más solicitada. Puntuación honesta sobre las probabilidades de lotería (~35% para FY26), nivel salarial bajo la nueva selección ponderada por salario, ajuste del empleador, y si la O-1A es un camino más fuerte para tu perfil.","pw.notify":"Avísame cuando esté disponible","pr.eyebrow":"Cómo funciona","pr.h2":"Tres principios. <em>Ese es todo el producto.</em>","pr.1.h":"Criterios reales, no impresiones","pr.1.p":"Cada puntuación se construye sobre los criterios regulatorios publicados de USCIS para esa visa. O-1A se lee contra los ocho criterios en 8 CFR 214.2(o)(3)(iii). NIW se lee contra el marco de tres pilares <em>Matter of Dhanasar</em>. Tu abogado puede inspeccionar el modelo.","pr.2.h":"Calibrada para ser honesta","pr.2.p":"La matemática está ajustada para que 90+ sea raro y ganado — reservado para perfiles genuinamente excepcionales. El mínimo regulatorio se sitúa en los 60s altos / 70s bajos (\"en rango real — ahora habla con un abogado\"). Nada inflado, nada aplastante.","pr.3.h":"El plan es el producto","pr.3.p":"Cada puntuación termina con un plan clasificado: los movimientos específicos y alcanzables que cierran tus brechas — los más rápidos primero. Cuando genuinamente has cruzado la línea, el plan te dice que pares y hables con un abogado real, no que sigas en nuestro producto.","tr.eyebrow":"Confianza y legal","tr.h2":"Lo que Hyphen es — y <em>no es</em>.","tr.lead":"La inmigración es sensible. Mantenemos una línea clara sobre lo que esta herramienta hace, lo que no, y a dónde debes ir para ayuda legal real.","tr.1.tag":"Lo que somos","tr.1.h":"Información honesta","tr.1.p":"Una herramienta gratuita, en el navegador, que lee tu perfil contra los criterios publicados de USCIS y devuelve una puntuación de fortaleza calibrada más un plan específico. Construida para que puedas <em>ver</em> dónde estás antes de decidir si invertir en una petición.","tr.2.tag":"Lo que no somos","tr.2.h":"Un bufete, ni tu abogado","tr.2.p":"Hyphen no proporciona asesoría legal, no representa a nadie ante USCIS, y no presenta peticiones. La Puntuación es orientación informativa de fortaleza, no una predicción de resultado. Para tu caso específico, necesitas un abogado de inmigración licenciado.","tr.3.tag":"Lo que no guardamos","tr.3.h":"Tus datos se quedan contigo","tr.3.p":"Hoy, la Puntuación funciona enteramente en tu navegador. Tus respuestas no se transmiten ni se guardan en un servidor. Cuando añadamos cuentas (para que puedas guardar tu perfil a través de vías), te diremos exactamente qué guardamos, por qué, y cómo está protegido.","fo.eyebrow":"Del fundador","fo.quote":"Soy estudiante internacional en EE.UU. He pasado más horas de las que me gustaría admitir leyendo 8 CFR 214 e intentando descubrir si tengo una oportunidad real con la O-1A, o si debería rendirme y aceptar la lotería de H-1B. La industria me dijo tanto \"no estás listo\" como \"danos $8,000 y veremos\". Ninguna era honesta. Hyphen es la herramienta que desearía hubiera existido — construida sobre la ley real, calibrada para decir la verdad, y gratis.","fo.sign1":"Fundador, Hyphen","fo.sign2":"Un estudiante internacional construyendo esto para personas en la misma situación","cta.h2":"Deja de adivinar. <em>Obtén tu Puntuación real.</em>","cta.p":"Es gratis, funciona en tu navegador, y nada se comparte. En 8 minutos sabrás exactamente dónde estás, qué falta, y qué hacer después.","cta.btn":"Elige tu vía","ft.about":"Puntuación honesta de inmigración. Construida sobre los criterios regulatorios reales de USCIS. Gratis, en el navegador, nada compartido. No somos un bufete de abogados.","ft.pathways":"Vías","ft.about_tag":"Acerca","ft.start":"Obtén tu Puntuación","ft.soon":"(próximamente)","ft.disc":"Hyphen no es un bufete de abogados y no proporciona asesoría legal. Las Puntuaciones de Hyphen son orientación informativa de fortaleza derivada de los criterios regulatorios publicados de USCIS para cada vía de visa (p. ej. 8 CFR 214.2(o)(3)(iii) para O-1A; <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016) para EB-2 NIW) y no son predicciones, promesas, o garantías de ningún resultado de inmigración. Los resultados de inmigración son determinados únicamente por agencias del gobierno de EE.UU. Este producto actualmente funciona enteramente en tu navegador; ningún dato es transmitido o guardado en un servidor. Para asesoría legal sobre tu caso específico, consulta a un abogado de inmigración licenciado.<br><br>&copy; 2026 Hyphen."},
+zh:{"nav.pathways":"签证路径","nav.how":"运作方式","nav.trust":"信任与法律","nav.cta":"获取您的分数","disc.strip":"<strong>Hyphen 不是律师事务所。</strong>仅提供信息性强度指导 — 不是法律建议、不是预测、不是保证。最终结果仅由 USCIS 决定。","hero.eyebrow":"诚实的移民评分","hero.h1":"了解您<em>真正的</em>美国签证状况。","hero.lead":"大多数移民工具会奉承您以促成销售,或拒绝您以保护他们的批准率。Hyphen <strong>两者都不做</strong>。我们根据真实的 USCIS 标准诚实地为您的档案评分,准确告诉您差距在哪里,并给您具体的弥补计划。免费。无需账户。不分享任何信息。","hero.cta1":"获取您的免费分数","hero.cta2":"运作方式","hero.t1":"非律师事务所","hero.t2":"在您的浏览器中运行","hero.t3":"不分享任何信息","mock.tag":"您的 O-1A 分数 · 示例","mock.live":"实时引擎","mock.verdict":"\"比您被告知的更接近。\"","mock.r1":"关键角色","mock.r2":"学术文章","mock.r3":"评审工作","mock.r4":"媒体报道","mock.r5":"会员资格","truth.eyebrow":"真相","truth.h2":"您不是\"还没准备好\"。您是离准备好<em>有明确距离</em>。","truth.p1":"\"准备好了再来找我们\" 这是移民律师对他们不想接的案子说的话 — 因为从来没有人定义过<em>准备好</em>意味着什么。","truth.p2":"USCIS 定义了。这些标准是公开的。对于大多数签证,资格根据联邦法规中具体的书面标准来判断。Hyphen 根据这些标准读取您的档案,并通过每一项的真实分数告诉您,您真正所处的位置。","truth.p3":"如果您是 78 分,我们就说 78 分。如果您是 34 分,<strong>我们也照说不误。</strong>在两种情况下,您都会得到一个具体的计划 — 该建立什么,按什么顺序,来推动分数。就这样。这就是产品。","pw.eyebrow":"签证路径","pw.h2":"选择您的签证 — <em>获取您的真实分数</em>。","pw.lead":"每个路径都在您的浏览器中运行,需要 7–10 分钟,根据真实的 USCIS 标准给您一个校准过的 0–100 分 — 外加您的具体差距计划。我们从最常被问及的两个路径开始。更多即将推出。","pw.live":"已上线","pw.soon":"即将推出","pw.workvisa":"工作签证","pw.gc":"绿卡","pw.englishonly":"问卷问题为英文 · 界面已翻译","pw.o1a.name":"杰出人才","pw.o1a.desc":"适用于科学、商业、教育与体育。根据 USCIS 的 8 项监管标准(8 CFR 214.2(o))评分。对创业者友好。当 H-1B 不合适时,通常是正确的路径。","pw.o1a.cta":"开始 O-1A 评分","pw.niw.name":"国家利益豁免","pw.niw.desc":"自我申请绿卡 — 无需雇主,无需劳工证。根据 <em>Matter of Dhanasar</em> 三要素测试诚实评分。分数受您最弱的一项限制,这正是 USCIS 的判定方式。","pw.niw.cta":"开始 NIW 评分","pw.eb1a.name":"杰出人才(绿卡)","pw.eb1a.desc":"O-1A 的绿卡版本。共享大部分相同的证据,但标准更高:\"持续的国家或国际认可\"。已经在 O-1A 上有较强表现的人最佳路径。","pw.h1b.name":"专业职业","pw.h1b.desc":"申请最多的工作签证。对抽签概率(FY26 约 35%)、新的工资加权选择下的工资等级、雇主匹配度,以及 O-1A 是否对您来说是更强路径的诚实评分。","pw.notify":"上线时通知我","pr.eyebrow":"运作方式","pr.h2":"三个原则。<em>这就是整个产品。</em>","pr.1.h":"真实标准,不是感觉","pr.1.p":"每个分数都建立在该签证已公布的 USCIS 监管标准上。O-1A 根据 8 CFR 214.2(o)(3)(iii) 中的八项标准读取。NIW 根据 <em>Matter of Dhanasar</em> 三要素框架读取。您的律师可以检查模型。","pr.2.h":"校准为诚实","pr.2.p":"数学经过调整使 90+ 罕见且应得 — 只为真正杰出的档案保留。最低法规要求位于 60-70 分区间(\"在真实范围内 — 现在与律师交谈\")。没有夸大,没有打击。","pr.3.h":"计划就是产品","pr.3.p":"每个分数都以一个排序的计划结尾:弥补差距的具体可行动作 — 最快的优先。当您真正跨过那条线时,计划会告诉您停下,去找真正的律师,而不是停留在我们的产品中。","tr.eyebrow":"信任与法律","tr.h2":"Hyphen 是什么 — <em>不是什么</em>。","tr.lead":"移民是敏感的。我们对这个工具做什么、不做什么、以及您应该去哪里获得真正的法律帮助,保持清晰的界限。","tr.1.tag":"我们是什么","tr.1.h":"诚实的信息","tr.1.p":"一个免费的、在浏览器中运行的工具,根据已公布的 USCIS 标准读取您的档案,并返回一个校准过的强度分数和具体计划。设计让您可以在决定是否投资于申请前<em>看清</em>自己的位置。","tr.2.tag":"我们不是什么","tr.2.h":"律师事务所,或您的律师","tr.2.p":"Hyphen 不提供法律建议,不代表任何人在 USCIS 面前,不提交申请。分数是信息性强度指导,不是结果预测。对于您的具体案件,您需要持证的移民律师。","tr.3.tag":"我们不储存什么","tr.3.h":"您的数据留在您身边","tr.3.p":"目前,分数完全在您的浏览器中运行。您的答案不会被传输或存储在服务器上。当我们添加账户(让您可以跨路径保存档案)时,我们会准确告诉您我们存什么、为什么存、以及如何保护。","fo.eyebrow":"来自创始人","fo.quote":"我是美国的国际学生。我花了比愿意承认的更多的时间阅读 8 CFR 214,试图弄清楚自己是否有 O-1A 的真实机会,还是应该放弃接受 H-1B 抽签。这个行业告诉我\"你还没准备好\"和\"给我们 $8,000 我们看看\"。两者都不诚实。Hyphen 就是我希望存在过的工具 — 建立在真实的法律之上,校准为说真话,且免费。","fo.sign1":"创始人,Hyphen","fo.sign2":"一个为同舟之人构建这个产品的国际学生","cta.h2":"停止猜测。<em>获取您真实的分数。</em>","cta.p":"免费,在您的浏览器中运行,不分享任何信息。8 分钟内您将准确知道自己的位置、缺什么、接下来该做什么。","cta.btn":"选择您的路径","ft.about":"诚实的移民评分。建立在真实的 USCIS 监管标准之上。免费,在浏览器中,不分享任何信息。我们不是律师事务所。","ft.pathways":"签证路径","ft.about_tag":"关于","ft.start":"获取您的分数","ft.soon":"(即将推出)","ft.disc":"Hyphen 不是律师事务所,不提供法律建议。Hyphen 分数是根据每个签证路径已公布的 USCIS 监管标准(例如 O-1A 的 8 CFR 214.2(o)(3)(iii);EB-2 NIW 的 <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016))得出的信息性强度指导,不是任何移民结果的预测、承诺或保证。移民结果完全由美国政府机构决定。本产品目前完全在您的浏览器中运行;没有数据被传输或存储在服务器上。对于您具体案件的法律建议,请咨询持证的移民律师。<br><br>&copy; 2026 Hyphen."},
+hi:{"nav.pathways":"मार्ग","nav.how":"यह कैसे काम करता है","nav.trust":"विश्वास और कानूनी","nav.cta":"अपना स्कोर पाएं","disc.strip":"<strong>Hyphen एक कानूनी फर्म नहीं है।</strong> केवल सूचनात्मक शक्ति मार्गदर्शन — कानूनी सलाह नहीं, भविष्यवाणी नहीं, गारंटी नहीं। केवल USCIS ही परिणाम तय करता है।","hero.eyebrow":"ईमानदार आव्रजन स्कोरिंग","hero.h1":"जानें कि आप अमेरिकी वीज़ा के लिए <em>वास्तव में</em> कहाँ खड़े हैं।","hero.lead":"अधिकांश आव्रजन उपकरण आपको बिक्री के लिए चापलूसी करते हैं, या अपनी स्वीकृति दर बचाने के लिए आपको अस्वीकार कर देते हैं। Hyphen <strong>दोनों नहीं</strong> करता। हम वास्तविक USCIS मानदंडों के विरुद्ध आपकी प्रोफ़ाइल का ईमानदारी से स्कोर करते हैं, आपको ठीक-ठीक बताते हैं कि कमियाँ कहाँ हैं, और उन्हें पाटने की विशिष्ट योजना देते हैं। मुफ़्त। कोई खाता नहीं। कुछ साझा नहीं।","hero.cta1":"अपना मुफ़्त स्कोर पाएं","hero.cta2":"यह कैसे काम करता है","hero.t1":"कानूनी फर्म नहीं","hero.t2":"आपके ब्राउज़र में चलता है","hero.t3":"कुछ साझा नहीं","mock.tag":"आपका O-1A स्कोर · उदाहरण","mock.live":"लाइव इंजन","mock.verdict":"\"जितना बताया गया उससे करीब।\"","mock.r1":"महत्वपूर्ण भूमिका","mock.r2":"शोध लेख","mock.r3":"निर्णायक के रूप में","mock.r4":"प्रेस","mock.r5":"सदस्यता","truth.eyebrow":"सच्चाई","truth.h2":"आप \"तैयार नहीं\" नहीं हैं। आप तैयार होने से <em>एक निश्चित दूरी</em> पर हैं।","truth.p1":"\"जब आप तैयार हों तो हमसे बात करें\" — यह वो बात है जो आव्रजन वकील उन लोगों से कहते हैं जिन्हें वे लेना नहीं चाहते — क्योंकि किसी ने कभी <em>तैयार</em> होने का अर्थ परिभाषित नहीं किया है।","truth.p2":"USCIS ने किया है। मानदंड सार्वजनिक हैं। अधिकांश वीज़ा के लिए, पात्रता संघीय नियमों में लिखित विशिष्ट मानकों के विरुद्ध तय की जाती है। Hyphen उन मानकों के विरुद्ध आपकी प्रोफ़ाइल पढ़ता है और प्रत्येक पर एक वास्तविक स्कोर के साथ बताता है कि आप वास्तव में कहाँ खड़े हैं।","truth.p3":"यदि आप 78 हैं, तो हम वही कहते हैं। यदि आप 34 हैं, <strong>तो हम वो भी कहते हैं।</strong> और दोनों ही मामलों में, आपको एक ठोस योजना मिलती है — क्या बनाना है, किस क्रम में, संख्या को बढ़ाने के लिए। बस इतना ही। यही उत्पाद है।","pw.eyebrow":"मार्ग","pw.h2":"अपना वीज़ा चुनें — <em>अपना वास्तविक स्कोर पाएं</em>।","pw.lead":"प्रत्येक मार्ग आपके ब्राउज़र में चलता है, 7–10 मिनट लेता है, और वास्तविक USCIS मानदंडों के विरुद्ध 0–100 का कैलिब्रेटेड स्कोर देता है — साथ ही आपकी विशिष्ट कमी योजना। हम दो सबसे अधिक पूछे जाने वाले मार्गों से शुरू कर रहे हैं। और जल्द आ रहे हैं।","pw.live":"लाइव","pw.soon":"जल्द आ रहा है","pw.workvisa":"कार्य वीज़ा","pw.gc":"ग्रीन कार्ड","pw.englishonly":"प्रश्नावली अंग्रेज़ी में · इंटरफ़ेस अनुवादित","pw.o1a.name":"असाधारण क्षमता","pw.o1a.desc":"विज्ञान, व्यवसाय, शिक्षा और एथलेटिक्स के लिए। 8 USCIS विनियामक मानदंडों (8 CFR 214.2(o)) के विरुद्ध स्कोर किया गया। संस्थापक के अनुकूल। जब H-1B नहीं होता तो अक्सर सही मार्ग।","pw.o1a.cta":"O-1A स्कोर शुरू करें","pw.niw.name":"राष्ट्रीय हित छूट","pw.niw.desc":"स्व-याचिका ग्रीन कार्ड — कोई नियोक्ता नहीं, कोई श्रम प्रमाणन नहीं। तीन-स्तंभ <em>Matter of Dhanasar</em> परीक्षण के विरुद्ध ईमानदारी से स्कोर किया गया। स्कोर आपके सबसे कमजोर स्तंभ से सीमित है, ठीक वैसे ही जैसे USCIS निर्णय करता है।","pw.niw.cta":"NIW स्कोर शुरू करें","pw.eb1a.name":"असाधारण क्षमता (ग्रीन कार्ड)","pw.eb1a.desc":"O-1A का ग्रीन कार्ड समकक्ष। समान साक्ष्य का बड़ा हिस्सा साझा करता है, उच्च मानक के साथ: \"निरंतर राष्ट्रीय या अंतर्राष्ट्रीय प्रशंसा।\" O-1A में पहले से मजबूत लोगों के लिए सर्वोत्तम मार्ग।","pw.h1b.name":"विशेष व्यवसाय","pw.h1b.desc":"सबसे अधिक दायर किया जाने वाला कार्य वीज़ा। लॉटरी संभावना (FY26 के लिए ~35%), नए वेतन-भारित चयन के तहत वेतन स्तर, नियोक्ता फिट, और क्या O-1A आपकी प्रोफ़ाइल के लिए एक मजबूत मार्ग है, पर ईमानदार स्कोरिंग।","pw.notify":"लाइव होने पर मुझे सूचित करें","pr.eyebrow":"यह कैसे काम करता है","pr.h2":"तीन सिद्धांत। <em>यही पूरा उत्पाद है।</em>","pr.1.h":"वास्तविक मानदंड, अनुमान नहीं","pr.1.p":"प्रत्येक स्कोर उस वीज़ा के लिए प्रकाशित USCIS विनियामक मानदंडों पर बनाया गया है। O-1A 8 CFR 214.2(o)(3)(iii) में आठ मानदंडों के विरुद्ध पढ़ता है। NIW तीन-स्तंभ <em>Matter of Dhanasar</em> ढाँचे के विरुद्ध पढ़ता है। आपका वकील मॉडल का निरीक्षण कर सकता है।","pr.2.h":"ईमानदार होने के लिए कैलिब्रेटेड","pr.2.p":"गणित इस तरह से ट्यून किया गया है कि 90+ दुर्लभ और अर्जित है — वास्तव में असाधारण प्रोफ़ाइलों के लिए आरक्षित। न्यूनतम विनियामक स्तर 60s के उच्च / 70s के निम्न में बैठता है (\"वास्तविक सीमा में — अब वकील से बात करें\")। कुछ भी बढ़ा-चढ़ाकर नहीं, कुछ भी कुचलने वाला नहीं।","pr.3.h":"योजना ही उत्पाद है","pr.3.p":"प्रत्येक स्कोर एक रैंक की गई योजना के साथ समाप्त होता है: विशिष्ट, प्राप्य कदम जो आपकी कमियों को बंद करते हैं — सबसे तेज़ पहले। जब आप वास्तव में सीमा पार कर लेते हैं, तो योजना आपको रुकने और एक वास्तविक वकील से बात करने के लिए कहती है, हमारे उत्पाद में रहने के लिए नहीं।","tr.eyebrow":"विश्वास और कानूनी","tr.h2":"Hyphen क्या है — और <em>क्या नहीं</em>।","tr.lead":"आव्रजन संवेदनशील है। हम इस बारे में एक स्पष्ट रेखा रखते हैं कि यह उपकरण क्या करता है, क्या नहीं, और वास्तविक कानूनी मदद के लिए आपको कहाँ जाना चाहिए।","tr.1.tag":"हम क्या हैं","tr.1.h":"ईमानदार जानकारी","tr.1.p":"एक मुफ़्त, ब्राउज़र में चलने वाला उपकरण जो प्रकाशित USCIS मानदंडों के विरुद्ध आपकी प्रोफ़ाइल पढ़ता है और एक कैलिब्रेटेड शक्ति स्कोर और एक विशिष्ट योजना देता है। याचिका में निवेश करने से पहले आप कहाँ खड़े हैं यह <em>देखने</em> के लिए बनाया गया।","tr.2.tag":"हम क्या नहीं हैं","tr.2.h":"एक कानूनी फर्म, या आपका वकील","tr.2.p":"Hyphen कानूनी सलाह नहीं देता, किसी का USCIS के सामने प्रतिनिधित्व नहीं करता, और याचिकाएँ दायर नहीं करता। स्कोर सूचनात्मक शक्ति मार्गदर्शन है, परिणाम की भविष्यवाणी नहीं। अपने विशिष्ट मामले के लिए, आपको एक लाइसेंस प्राप्त आव्रजन वकील की आवश्यकता है।","tr.3.tag":"हम क्या संग्रहीत नहीं करते","tr.3.h":"आपका डेटा आपके साथ रहता है","tr.3.p":"आज, स्कोर पूरी तरह से आपके ब्राउज़र में चलता है। आपके उत्तर सर्वर पर प्रेषित या संग्रहीत नहीं किए जाते। जब हम खाते जोड़ते हैं (ताकि आप मार्गों में अपनी प्रोफ़ाइल सहेज सकें), तो हम आपको ठीक-ठीक बताएँगे कि हम क्या संग्रहीत करते हैं, क्यों, और यह कैसे सुरक्षित है।","fo.eyebrow":"संस्थापक की ओर से","fo.quote":"मैं अमेरिका में एक अंतर्राष्ट्रीय छात्र हूँ। मैंने 8 CFR 214 पढ़ने और यह पता लगाने में जितने घंटे बिताए हैं उतने स्वीकार करना नहीं चाहता — क्या O-1A का मेरा वास्तविक मौका है, या क्या मुझे हार माननी चाहिए और H-1B लॉटरी स्वीकार करनी चाहिए। उद्योग ने मुझे दोनों कहा \"आप तैयार नहीं हैं\" और \"हमें $8,000 दें और देखेंगे।\" दोनों ईमानदार नहीं थे। Hyphen वो उपकरण है जो मेरी इच्छा थी कि अस्तित्व में रहता — वास्तविक कानून पर बनाया गया, सच कहने के लिए कैलिब्रेटेड, और मुफ़्त।","fo.sign1":"संस्थापक, Hyphen","fo.sign2":"एक अंतर्राष्ट्रीय छात्र जो उसी नाव में बैठे लोगों के लिए यह बना रहा है","cta.h2":"अनुमान लगाना बंद करें। <em>अपना वास्तविक स्कोर पाएं।</em>","cta.p":"यह मुफ़्त है, आपके ब्राउज़र में चलता है, और कुछ साझा नहीं किया जाता। 8 मिनट में आप ठीक-ठीक जानेंगे कि आप कहाँ खड़े हैं, क्या कमी है, और आगे क्या करना है।","cta.btn":"अपना मार्ग चुनें","ft.about":"ईमानदार आव्रजन स्कोरिंग। वास्तविक USCIS विनियामक मानदंडों पर बनाया गया। मुफ़्त, ब्राउज़र में, कुछ साझा नहीं किया जाता। हम एक कानूनी फर्म नहीं हैं।","ft.pathways":"मार्ग","ft.about_tag":"बारे में","ft.start":"अपना स्कोर पाएं","ft.soon":"(जल्द)","ft.disc":"Hyphen एक कानूनी फर्म नहीं है और कानूनी सलाह नहीं देता। Hyphen स्कोर प्रत्येक वीज़ा मार्ग के लिए प्रकाशित USCIS विनियामक मानदंडों (जैसे O-1A के लिए 8 CFR 214.2(o)(3)(iii); EB-2 NIW के लिए <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016)) से प्राप्त सूचनात्मक शक्ति मार्गदर्शन हैं और किसी भी आव्रजन परिणाम की भविष्यवाणी, वादा, या गारंटी नहीं हैं। आव्रजन परिणाम केवल अमेरिकी सरकारी एजेंसियों द्वारा निर्धारित किए जाते हैं। यह उत्पाद वर्तमान में पूरी तरह से आपके ब्राउज़र में चलता है; कोई डेटा सर्वर पर प्रेषित या संग्रहीत नहीं किया जाता। अपने विशिष्ट मामले के बारे में कानूनी सलाह के लिए, एक लाइसेंस प्राप्त आव्रजन वकील से परामर्श करें।<br><br>&copy; 2026 Hyphen."},
+pt:{"nav.pathways":"Vias","nav.how":"Como funciona","nav.trust":"Confiança e jurídico","nav.cta":"Obtenha sua Pontuação","disc.strip":"<strong>Hyphen não é um escritório de advocacia.</strong> Apenas orientação informativa de força — não é aconselhamento jurídico, não é previsão, não é garantia. Apenas o USCIS decide os resultados.","hero.eyebrow":"Pontuação honesta de imigração","hero.h1":"Saiba onde você <em>realmente</em> está para um visto americano.","hero.lead":"A maioria das ferramentas de imigração te lisonjeia para fazer uma venda, ou te rejeita para proteger sua taxa de aprovação. A Hyphen não faz <strong>nenhum dos dois</strong>. Pontuamos seu perfil honestamente contra os critérios reais do USCIS, dizemos exatamente onde estão as lacunas, e damos o plano específico para fechá-las. Grátis. Sem conta. Nada compartilhado.","hero.cta1":"Obtenha sua Pontuação grátis","hero.cta2":"Como funciona","hero.t1":"Não é escritório de advocacia","hero.t2":"Roda no seu navegador","hero.t3":"Nada compartilhado","mock.tag":"Sua Pontuação O-1A · exemplo","mock.live":"Motor ao vivo","mock.verdict":"\"Mais perto do que te disseram.\"","mock.r1":"Função crítica","mock.r2":"Artigos acadêmicos","mock.r3":"Como juiz","mock.r4":"Imprensa","mock.r5":"Associação","truth.eyebrow":"A verdade","truth.h2":"Você não está \"não pronto\". Você está a uma <em>distância definida</em> de estar pronto.","truth.p1":"\"Fale conosco quando estiver pronto\" é o que advogados de imigração dizem a pessoas que não querem assumir — porque ninguém nunca definiu o que <em>pronto</em> significa.","truth.p2":"O USCIS definiu. Os critérios são públicos. Para a maioria dos vistos, a elegibilidade é julgada contra um conjunto específico e escrito de padrões nos regulamentos federais. A Hyphen lê seu perfil contra esses padrões e te diz, com uma pontuação real em cada um, onde você verdadeiramente está.","truth.p3":"Se você é 78, dizemos. Se você é 34, <strong>também dizemos.</strong> E em ambos os casos, você recebe um plano concreto — o que construir, em que ordem, para mover o número. É isso. Esse é o produto.","pw.eyebrow":"Vias","pw.h2":"Escolha seu visto — <em>obtenha sua Pontuação real</em>.","pw.lead":"Cada via roda no seu navegador, leva 7–10 minutos, e te dá uma pontuação calibrada de 0–100 contra os critérios reais do USCIS — mais seu plano específico de lacunas. Começamos com as duas vias mais perguntadas. Mais a caminho.","pw.live":"Ao vivo","pw.soon":"Em breve","pw.workvisa":"Visto de Trabalho","pw.gc":"Green Card","pw.englishonly":"Perguntas em inglês · interface traduzida","pw.o1a.name":"Habilidade Extraordinária","pw.o1a.desc":"Para ciências, negócios, educação e atletismo. Pontuado contra os 8 critérios regulatórios do USCIS (8 CFR 214.2(o)). Apto para fundadores. Frequentemente o caminho certo quando o H-1B não é.","pw.o1a.cta":"Iniciar Pontuação O-1A","pw.niw.name":"Isenção por Interesse Nacional","pw.niw.desc":"Green card por autopetição — sem empregador, sem certificação trabalhista. Pontuado honestamente contra o teste de três pilares <em>Matter of Dhanasar</em>. A pontuação é limitada pelo seu pilar mais fraco, exatamente como o USCIS julga.","pw.niw.cta":"Iniciar Pontuação NIW","pw.eb1a.name":"Habilidade Extraordinária (Green Card)","pw.eb1a.desc":"O irmão green card do O-1A. Compartilha grande parte das mesmas evidências, com um padrão mais alto: \"aclamação nacional ou internacional sustentada.\" Melhor caminho para quem já é forte no O-1A.","pw.h1b.name":"Ocupação Especializada","pw.h1b.desc":"O visto de trabalho mais solicitado. Pontuação honesta sobre as chances de loteria (~35% para FY26), faixa salarial sob a nova seleção ponderada por salário, ajuste do empregador, e se o O-1A é um caminho mais forte para seu perfil.","pw.notify":"Me avise quando estiver disponível","pr.eyebrow":"Como funciona","pr.h2":"Três princípios. <em>Esse é o produto inteiro.</em>","pr.1.h":"Critérios reais, não palpites","pr.1.p":"Cada pontuação é construída sobre os critérios regulatórios publicados do USCIS para aquele visto. O-1A lê contra os oito critérios em 8 CFR 214.2(o)(3)(iii). NIW lê contra o framework de três pilares <em>Matter of Dhanasar</em>. Seu advogado pode inspecionar o modelo.","pr.2.h":"Calibrada para ser honesta","pr.2.p":"A matemática é ajustada para que 90+ seja raro e merecido — reservado para perfis genuinamente excepcionais. O mínimo regulatório fica nos 60-70 (\"em alcance real — agora fale com um advogado\"). Nada inflado, nada esmagador.","pr.3.h":"O plano é o produto","pr.3.p":"Cada pontuação termina com um plano classificado: os movimentos específicos e alcançáveis que fecham suas lacunas — os mais rápidos primeiro. Quando você genuinamente cruzou a linha, o plano te diz para parar e falar com um advogado real, não ficar no nosso produto.","tr.eyebrow":"Confiança e jurídico","tr.h2":"O que a Hyphen é — e <em>não é</em>.","tr.lead":"Imigração é sensível. Mantemos uma linha clara sobre o que esta ferramenta faz, o que não faz, e onde você deve ir para ajuda jurídica real.","tr.1.tag":"O que somos","tr.1.h":"Informação honesta","tr.1.p":"Uma ferramenta gratuita, no navegador, que lê seu perfil contra os critérios publicados do USCIS e retorna uma pontuação de força calibrada e um plano específico. Construída para que você possa <em>ver</em> onde está antes de decidir se vai investir em uma petição.","tr.2.tag":"O que não somos","tr.2.h":"Um escritório de advocacia, ou seu advogado","tr.2.p":"A Hyphen não fornece aconselhamento jurídico, não representa ninguém perante o USCIS, e não protocola petições. A Pontuação é orientação informativa de força, não uma previsão de resultado. Para seu caso específico, você precisa de um advogado de imigração licenciado.","tr.3.tag":"O que não armazenamos","tr.3.h":"Seus dados ficam com você","tr.3.p":"Hoje, a Pontuação roda inteiramente no seu navegador. Suas respostas não são transmitidas ou armazenadas em um servidor. Quando adicionarmos contas (para você poder salvar seu perfil entre vias), te diremos exatamente o que armazenamos, por quê, e como está protegido.","fo.eyebrow":"Do fundador","fo.quote":"Sou um estudante internacional nos EUA. Passei mais horas do que gostaria de admitir lendo 8 CFR 214 e tentando descobrir se tenho uma chance real no O-1A, ou se devo desistir e aceitar a loteria do H-1B. A indústria me disse tanto \"você não está pronto\" quanto \"nos dê $8,000 e veremos.\" Nenhum era honesto. A Hyphen é a ferramenta que eu queria que tivesse existido — construída sobre a lei real, calibrada para dizer a verdade, e gratuita.","fo.sign1":"Fundador, Hyphen","fo.sign2":"Um estudante internacional construindo isto para pessoas no mesmo barco","cta.h2":"Pare de adivinhar. <em>Obtenha sua Pontuação real.</em>","cta.p":"É grátis, roda no seu navegador, e nada é compartilhado. Em 8 minutos você saberá exatamente onde está, o que falta, e o que fazer em seguida.","cta.btn":"Escolha sua via","ft.about":"Pontuação honesta de imigração. Construída sobre os critérios regulatórios reais do USCIS. Grátis, no navegador, nada compartilhado. Não somos um escritório de advocacia.","ft.pathways":"Vias","ft.about_tag":"Sobre","ft.start":"Obtenha sua Pontuação","ft.soon":"(em breve)","ft.disc":"A Hyphen não é um escritório de advocacia e não fornece aconselhamento jurídico. As Pontuações Hyphen são orientação informativa de força derivada dos critérios regulatórios publicados do USCIS para cada via de visto (por exemplo, 8 CFR 214.2(o)(3)(iii) para O-1A; <em>Matter of Dhanasar</em>, 26 I&amp;N Dec. 884 (AAO 2016) para EB-2 NIW) e não são previsões, promessas, ou garantias de qualquer resultado de imigração. Os resultados de imigração são determinados exclusivamente por agências do governo dos EUA. Este produto atualmente roda inteiramente no seu navegador; nenhum dado é transmitido ou armazenado em um servidor. Para aconselhamento jurídico sobre seu caso específico, consulte um advogado de imigração licenciado.<br><br>&copy; 2026 Hyphen."}
+};
+const LABELS={en:"EN",es:"ES",zh:"ZH",hi:"HI",pt:"PT"};
+function setLang(lang){
+  if(!T[lang])lang='en';
+  document.body.dataset.lang=lang;document.documentElement.lang=lang;
+  document.getElementById('langLabel').textContent=LABELS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(T[lang][k]!==undefined)el.innerHTML=T[lang][k];
+  });
+  document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('active',o.dataset.lang===lang));
+  try{localStorage.setItem('hyphen_lang',lang);}catch(_){}
+}
+(function(){
+  let lang='en';
+  try{const s=localStorage.getItem('hyphen_lang');if(s&&T[s])lang=s;}catch(_){}
+  if(!lang||lang==='en'){
+    const nav=(navigator.language||'').toLowerCase();
+    if(nav.startsWith('es'))lang='es';
+    else if(nav.startsWith('zh'))lang='zh';
+    else if(nav.startsWith('hi'))lang='hi';
+    else if(nav.startsWith('pt'))lang='pt';
+  }
+  setLang(lang);
+})();
+const lb=document.getElementById('langBtn'),lm=document.getElementById('langMenu');
+lb.addEventListener('click',e=>{e.stopPropagation();lm.classList.toggle('open');lb.setAttribute('aria-expanded',lm.classList.contains('open'));});
+document.addEventListener('click',()=>{lm.classList.remove('open');lb.setAttribute('aria-expanded','false');});
+document.querySelectorAll('.lang-opt').forEach(o=>{
+  o.addEventListener('click',e=>{e.stopPropagation();setLang(o.dataset.lang);lm.classList.remove('open');});
+});
+</script>
+</body>
+</html>
